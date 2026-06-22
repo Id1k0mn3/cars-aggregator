@@ -1,23 +1,48 @@
-# Context Update Log
+# Context Update
 
-## Current status
+## Purpose
 
-The repository contains only the frontend codebase for a car website aggregator.
+Use this file to keep short project context after meaningful architecture, API, setup, or product decisions.
 
-## Current architecture
+This file should not become a changelog for every small implementation step.
 
-The frontend should follow Feature-Sliced Design.
+## Current state
 
-## Active decisions
+- Repository contains frontend code for a car website aggregator.
+- Frontend consumes a backend API through a documented API contract.
+- Frontend must not depend on backend internals.
+- Main architectural rule: Feature-Sliced Design.
+- Main implementation rules: strict TypeScript, no `any`, no new packages without approval, API DTOs separated from frontend domain models.
 
-- The frontend must not depend on backend internals.
-- The frontend should know only backend API contracts.
-- New packages require explicit justification and user approval.
-- Implementation should start with a reviewable plan.
-- Meaningful architecture changes should be documented.
+## Current product direction
 
-## Deprecated context
+The first frontend priority is a stable public vehicle catalog:
 
-- This repository is not a multi-project workspace.
-- This repository is not responsible for backend implementation.
-- This repository should not document data collection or parser internals.
+- vehicle list
+- dictionary-based filters
+- pagination
+- loading, error, and empty states
+
+Authentication should come after the public catalog foundation is stable.
+
+## Active blockers and open questions
+
+- Final production API base URL is not confirmed.
+- Token storage strategy is not finalized.
+- Vehicle details endpoint is not confirmed.
+- User advertisement creation contract is not confirmed.
+- Paid plans are not specified.
+- Crawler import should not be exposed as a public frontend feature unless backend protection is clarified.
+
+## How to update this file
+
+Update this file only when there is a meaningful change to:
+
+- product direction
+- architecture
+- API assumptions
+- setup
+- dependency decisions
+- long-term implementation rules
+
+Keep updates short.

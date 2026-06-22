@@ -1,38 +1,84 @@
 # Project Context
 
-## Product
+## Repository scope
 
-This repository contains the frontend for a car website aggregator.
+This repository contains only the frontend codebase for a car website aggregator.
 
-The product goal is to help users browse, search, filter, and inspect car advertisements through a clean marketplace-style interface.
+The frontend communicates with a backend API, but frontend code must not depend on backend internals, backend framework classes, database models, or server-side implementation details.
 
-## Repository boundary
+## Product goal
 
-This is a frontend-only repository.
+Build a frontend application for browsing vehicle advertisements from an external/backend data source.
 
-The frontend communicates with a backend API.
+The first stable product goal is a public vehicle catalog with filters. Authentication and user-specific features should be added after the public catalog is stable.
 
-The frontend must not know how backend data is collected, parsed, normalized, stored, or updated.
+## Current backend API capabilities
 
-Frontend code should depend only on:
+The current backend API contract supports:
 
-- API contracts
-- frontend domain models
-- UI state
-- user interactions
+- user registration
+- user login
+- user logout
+- current user lookup
+- email verification
+- public vehicle listing
+- vehicle filters
+- vehicle dictionaries for brand, fuel, and body types
+- crawler-based vehicle import
 
-## Current architecture direction
+The crawler import endpoint is not a normal frontend user feature. Do not expose it in the public frontend unless the backend contract explicitly makes it safe for frontend usage.
 
-The frontend should follow Feature-Sliced Design.
+## Current MVP scope
 
-Expected source structure:
+### MVP 1 — Public catalog
 
-```txt
-src/
-  app/
-  pages/
-  widgets/
-  features/
-  entities/
-  shared/
-```
+- vehicle list page
+- vehicle cards
+- dictionary-based filters
+- price and registration date filters
+- pagination using the API contract
+- loading, error, and empty states
+
+### MVP 2 — Authentication
+
+- registration
+- login
+- logout
+- current user restore
+- unauthorized state handling
+
+### MVP 3 — Email verification
+
+- verification result page
+- resend verification email action
+- handling for expired or invalid links
+
+## Not implemented or not clarified yet
+
+Do not build these as full frontend features until the API/product contract is clear:
+
+- normal user advertisement creation
+- vehicle editing
+- vehicle deletion
+- paid plans
+- user-owned advertisements
+- public user profiles
+- vehicle details endpoint
+- related advertisements
+- crawler/admin import UI
+
+## API integration principles
+
+- Treat backend responses as API DTOs, not frontend domain models.
+- Map API DTOs into frontend models before passing data into presentational components.
+- Keep API-specific error shapes at the API/model boundary.
+- Do not document backend internals in frontend docs unless needed to describe the frontend API contract boundary.
+
+## Open questions
+
+- What is the final production API base URL?
+- Should unverified users access authenticated frontend features?
+- Should vehicle details have a dedicated endpoint?
+- Should normal users be able to create advertisements?
+- What is the safe token storage strategy for this frontend?
+- Should public user data be shown in the frontend?

@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>AutoMarket — Design Export</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F0F2F5;width:1440px}
+
+/* ── TOKENS ── */
+:root{
+  --brand:     #1A2B4A;
+  --brand-mid: #2563EB;
+  --brand-lt:  #EFF6FF;
+  --accent:    #E8460A;
+  --bg1:       #FFFFFF;
+  --bg2:       #F7F8FA;
+  --text1:     #111827;
+  --text2:     #6B7280;
+  --border:    #E5E7EB;
+  --radius:    10px;
+  --radius-lg: 14px;
+}
+
+/* ─── PAGE WRAPPER ─── */
+.page-wrap{
+  width:1440px;
+  min-height:900px;
+  background:#F0F2F5;
+  padding:0 0 80px;
+  position:relative;
+}
+.page-label{
+  font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:#fff;background:var(--brand-mid);display:inline-block;
+  padding:6px 18px;margin:0 0 0 80px;border-radius:0 0 8px 8px;
+}
+.page-divider{height:32px}
+
+/* ─── LAYOUT ─── */
+.container{padding:0 80px}
+
+/* ─── TOPBAR ─── */
+.topbar{
+  background:var(--brand);padding:16px 80px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{font-size:22px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;letter-spacing:-.5px}
+.logo-dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:14px;color:rgba(255,255,255,.7);text-decoration:none}
+.nav-links a:hover{color:#fff}
+.nav-right{display:flex;gap:10px;align-items:center}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;
+  font-size:13px;padding:7px 18px;border-radius:7px;cursor:pointer;font-family:inherit}
+.btn-accent{background:var(--accent);border:none;color:#fff;
+  font-size:13px;padding:8px 18px;border-radius:7px;cursor:pointer;font-weight:600;font-family:inherit}
+
+/* ─── HERO ─── */
+.hero{
+  background:linear-gradient(140deg,#0d1c35 0%,#1a3568 60%,#1e4080 100%);
+  padding:60px 80px 52px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;right:-100px;top:-80px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(37,99,235,.18),transparent 70%);
+}
+.hero::after{
+  content:'';position:absolute;right:80px;bottom:-40px;
+  width:340px;height:240px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,70,10,.1),transparent 70%);
+}
+.hero-eyebrow{font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.45);margin-bottom:14px}
+.hero h1{font-size:46px;font-weight:700;color:#fff;line-height:1.15;max-width:560px;margin-bottom:12px}
+.hero h1 span{color:#60a5fa}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.55);max-width:460px;margin-bottom:36px;line-height:1.6}
+
+.search-wrap{
+  display:flex;background:#fff;border-radius:12px;overflow:hidden;
+  max-width:680px;box-shadow:0 8px 32px rgba(0,0,0,.3);
+}
+.s-sel{
+  border:none;background:none;font-size:13px;padding:0 16px;
+  color:#374151;border-right:1px solid #e5e7eb;cursor:pointer;
+  outline:none;min-width:130px;font-family:inherit;
+}
+.s-inp{
+  border:none;flex:1;font-size:14px;padding:16px 18px;
+  outline:none;font-family:inherit;color:#111;
+}
+.s-btn{
+  background:var(--accent);color:#fff;border:none;
+  padding:16px 28px;font-size:14px;font-weight:700;cursor:pointer;
+  font-family:inherit;display:flex;align-items:center;gap:8px;white-space:nowrap;
+}
+
+.hero-stats{display:flex;gap:40px;margin-top:36px}
+.hstat-num{font-size:28px;font-weight:700;color:#fff}
+.hstat-label{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px}
+
+/* ─── CHIPS ─── */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:24px 80px 0}
+.chip{
+  background:#fff;border:1px solid var(--border);border-radius:20px;
+  padding:7px 16px;font-size:13px;color:var(--text2);cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+}
+.chip.active{background:var(--brand-lt);border-color:#93c5fd;color:var(--brand-mid);font-weight:500}
+
+/* ─── SECTION HEADER ─── */
+.sec-hd{display:flex;align-items:baseline;justify-content:space-between;
+  margin:36px 80px 18px}
+.sec-hd h2{font-size:22px;font-weight:700;color:var(--text1)}
+.sec-hd a{font-size:13px;color:var(--brand-mid);text-decoration:none}
+
+/* ─── CAR GRID ─── */
+.car-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:0 80px}
+.car-card{
+  background:var(--bg1);border:1px solid var(--border);
+  border-radius:var(--radius-lg);overflow:hidden;
+}
+.car-img{height:180px;position:relative;display:flex;align-items:center;justify-content:center}
+.car-badge{
+  position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;
+  padding:4px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.5px;color:#fff;
+}
+.car-fav{
+  position:absolute;top:10px;right:10px;
+  width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);
+  display:flex;align-items:center;justify-content:center;font-size:15px;
+}
+.car-body{padding:14px}
+.car-make{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text2);margin-bottom:3px}
+.car-name{font-size:15px;font-weight:600;color:var(--text1);margin-bottom:4px}
+.car-spec{font-size:12px;color:var(--text2);margin-bottom:10px}
+.car-price{font-size:20px;font-weight:700;color:var(--text1);margin-bottom:10px}
+.car-meta{display:flex;gap:6px;flex-wrap:wrap}
+.car-tag{font-size:11px;color:var(--text2);background:var(--bg2);padding:3px 8px;border-radius:5px}
+
+/* ─── CATEGORIES ─── */
+.cat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;padding:0 80px}
+.cat-tile{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px 12px;text-align:center;cursor:pointer;
+}
+.cat-icon{font-size:32px;color:var(--brand-mid);margin-bottom:10px}
+.cat-label{font-size:14px;font-weight:600;color:var(--text1);margin-bottom:3px}
+.cat-count{font-size:12px;color:var(--text2)}
+
+/* ─── BRANDS ─── */
+.brand-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:12px;padding:0 80px}
+.brand-tile{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px;text-align:center;cursor:pointer;
+}
+.brand-name{font-size:13px;font-weight:600;color:var(--text1);margin-top:6px}
+.brand-logo{width:48px;height:32px;background:var(--bg2);border-radius:6px;
+  margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text2)}
+
+/* ─── DIVIDER ─── */
+.divider{border:none;border-top:1px solid var(--border);margin:40px 80px}
+
+/* ══════ PAGE 2 — LISTING ══════ */
+.listing-layout{display:grid;grid-template-columns:280px 1fr;gap:24px;padding:0 80px;margin-top:24px}
+
+.filter-panel{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:20px;align-self:start;
+}
+.fp-title{font-size:16px;font-weight:700;color:var(--text1);margin-bottom:20px;
+  padding-bottom:14px;border-bottom:1px solid var(--border)}
+.fg-label{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--text2);display:block;margin-bottom:8px}
+.fg{margin-bottom:18px}
+.fi{
+  width:100%;border:1px solid var(--border);background:var(--bg2);
+  border-radius:7px;padding:9px 12px;font-size:13px;font-family:inherit;
+  color:var(--text1);outline:none;
+}
+.fi-row{display:flex;gap:8px}
+.fi-row .fi{width:calc(50% - 4px)}
+.fcheck{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text1);margin-bottom:7px}
+.fcheck input{accent-color:var(--brand-mid);width:15px;height:15px}
+.f-apply{
+  background:var(--brand-mid);color:#fff;border:none;
+  width:100%;padding:11px;border-radius:7px;font-size:14px;font-weight:600;
+  cursor:pointer;font-family:inherit;margin-top:6px;
+}
+.f-reset{text-align:center;margin-top:8px;font-size:12px;color:var(--brand-mid);cursor:pointer}
+
+.list-toolbar{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;
+}
+.list-count{font-size:14px;color:var(--text2)}
+.list-count strong{color:var(--text1)}
+.sort-row{display:flex;align-items:center;gap:12px}
+.sort-sel{
+  border:1px solid var(--border);background:#fff;border-radius:7px;
+  padding:7px 12px;font-size:13px;font-family:inherit;color:var(--text1);outline:none;
+}
+.view-btns{display:flex;gap:4px}
+.vbtn{
+  padding:7px 10px;border:1px solid var(--border);background:#fff;
+  border-radius:6px;font-size:14px;color:var(--text2);cursor:pointer;
+}
+.vbtn.active{background:var(--brand-lt);border-color:#93c5fd;color:var(--brand-mid)}
+
+/* ─ H-CARD ─ */
+.hcard{
+  display:grid;grid-template-columns:220px 1fr 150px;
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);
+  overflow:hidden;margin-bottom:14px;
+}
+.hcard-img{position:relative;display:flex;align-items:center;justify-content:center}
+.hcard-body{padding:16px 20px}
+.hcard-make{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text2);margin-bottom:3px}
+.hcard-name{font-size:16px;font-weight:700;color:var(--text1);margin-bottom:5px}
+.hcard-spec{font-size:13px;color:var(--text2);margin-bottom:12px}
+.hcard-feats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.hcard-feat{font-size:11px;color:var(--text2);background:var(--bg2);padding:3px 9px;border-radius:5px}
+.hcard-loc{font-size:12px;color:var(--text2)}
+.hcard-price-col{
+  padding:16px;display:flex;flex-direction:column;
+  align-items:flex-end;justify-content:space-between;
+  border-left:1px solid var(--border);
+}
+.hp-big{font-size:22px;font-weight:700;color:var(--text1)}
+.hp-sub{font-size:12px;color:var(--text2)}
+.btn-call{
+  background:var(--brand-mid);color:#fff;border:none;
+  width:100%;padding:9px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
+}
+.btn-save{
+  background:transparent;border:1px solid var(--border);
+  width:100%;padding:8px;border-radius:7px;font-size:12px;cursor:pointer;
+  color:var(--text2);font-family:inherit;margin-top:6px;
+}
+
+/* ── AD BANNER ── */
+.ad-banner{
+  background:linear-gradient(120deg,#1a2b4a,#2563eb);
+  border-radius:var(--radius-lg);padding:20px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;
+}
+.ad-text{color:#fff;font-size:14px}
+.ad-text strong{font-size:16px;display:block;margin-bottom:2px}
+.ad-btn{background:#fff;color:var(--brand-mid);border:none;
+  padding:8px 18px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+
+/* ══════ PAGE 3 — DETAIL ══════ */
+.detail-breadcrumb{font-size:13px;color:var(--text2);padding:16px 80px;display:flex;align-items:center;gap:8px}
+.detail-grid{display:grid;grid-template-columns:1fr 360px;gap:24px;padding:0 80px}
+.gallery{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border)}
+.gal-main{height:380px;display:flex;align-items:center;justify-content:center;position:relative}
+.gal-count{position:absolute;bottom:14px;right:14px;background:rgba(0,0,0,.55);color:#fff;font-size:13px;padding:5px 12px;border-radius:7px}
+.gal-thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.gal-th{height:80px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.meta-strip{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+  background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:18px;
+}
+.ms-cell{background:#fff;padding:14px;text-align:center}
+.ms-label{font-size:11px;color:var(--text2);margin-bottom:5px}
+.ms-val{font-size:15px;font-weight:700;color:var(--text1)}
+.detail-tabs{display:flex;border-bottom:1px solid var(--border);margin:22px 0 14px}
+.dtab{padding:11px 20px;font-size:14px;border:none;background:none;cursor:pointer;color:var(--text2);border-bottom:2px solid transparent;font-family:inherit}
+.dtab.active{color:var(--brand-mid);border-bottom-color:var(--brand-mid);font-weight:600}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.sp-label{background:var(--bg2);padding:11px 16px;font-size:13px;color:var(--text2);border-bottom:1px solid var(--border)}
+.sp-val{background:#fff;padding:11px 16px;font-size:13px;color:var(--text1);font-weight:600;border-bottom:1px solid var(--border)}
+.detail-desc{margin-top:20px;font-size:14px;color:var(--text2);line-height:1.7;padding:16px;background:var(--bg2);border-radius:var(--radius)}
+
+/* ─ PRICE CARD ─ */
+.price-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;align-self:start;
+}
+.pc-price{font-size:34px;font-weight:700;color:var(--text1);margin-bottom:4px}
+.pc-sub{font-size:13px;color:var(--text2);margin-bottom:18px}
+.pc-actions{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.btn-primary{background:var(--brand-mid);color:#fff;border:none;padding:13px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+.btn-secondary{background:transparent;color:var(--brand-mid);border:2px solid var(--brand-mid);padding:12px;border-radius:8px;font-size:15px;cursor:pointer;font-family:inherit;width:100%}
+.pc-sub-actions{display:flex;gap:8px;margin-bottom:18px}
+.btn-sm{flex:1;border:1px solid var(--border);background:var(--bg2);padding:9px;border-radius:7px;font-size:12px;cursor:pointer;color:var(--text2);font-family:inherit}
+.seller-divider{border-top:1px solid var(--border);padding-top:18px;margin-top:6px}
+.seller-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.s-avatar{width:44px;height:44px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+.s-name{font-size:15px;font-weight:600;color:var(--text1)}
+.s-type{font-size:11px;background:var(--brand-lt);color:var(--brand-mid);padding:2px 8px;border-radius:4px;font-weight:600;display:inline-block;margin-top:2px}
+.stars{color:#f59e0b;font-size:14px;letter-spacing:1px;margin-bottom:4px}
+.s-stats{display:flex;gap:16px}
+.s-stat{font-size:12px;color:var(--text2)}
+.pc-meta{border-top:1px solid var(--border);margin-top:14px;padding-top:14px}
+.pc-meta-row{font-size:12px;color:var(--text2);margin-bottom:6px}
+
+/* ── SIMILAR STRIP ── */
+.similar-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 80px;margin-top:4px}
+
+/* ══════ PAGE 4 — SELL ══════ */
+.sell-wrap{max-width:800px;margin:0 auto;padding:0 80px}
+.sell-hero{text-align:center;padding:40px 0 32px}
+.sell-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--brand-mid);margin-bottom:10px}
+.sell-hero h1{font-size:36px;font-weight:700;color:var(--text1);margin-bottom:8px}
+.sell-hero p{font-size:16px;color:var(--text2)}
+
+.steps-bar{display:flex;align-items:center;margin-bottom:32px}
+.step-item{display:flex;align-items:center;gap:10px}
+.step-num{
+  width:32px;height:32px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:14px;font-weight:700;
+}
+.step-num.done{background:var(--brand-mid);color:#fff}
+.step-num.curr{background:var(--brand-mid);color:#fff;box-shadow:0 0 0 4px rgba(37,99,235,.2)}
+.step-num.todo{background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
+.step-label{font-size:13px;font-weight:600}
+.step-label.active{color:var(--brand-mid)}
+.step-label.todo{color:var(--text2)}
+.step-line{flex:1;height:1px;background:var(--border);margin:0 12px}
+.step-line.done{background:var(--brand-mid)}
+
+.form-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin-bottom:20px}
+.form-title{font-size:16px;font-weight:700;color:var(--text1);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-field{display:flex;flex-direction:column;gap:5px}
+.form-field.full{grid-column:1/-1}
+.f-label{font-size:12px;font-weight:600;color:var(--text2)}
+.f-input{
+  border:1px solid var(--border);background:var(--bg2);border-radius:8px;
+  padding:10px 14px;font-size:14px;font-family:inherit;color:var(--text1);outline:none;
+}
+.f-textarea{
+  border:1px solid var(--border);background:var(--bg2);border-radius:8px;
+  padding:10px 14px;font-size:14px;font-family:inherit;color:var(--text1);
+  outline:none;resize:vertical;min-height:100px;width:100%;
+}
+.f-hint{font-size:11px;color:var(--text2)}
+
+/* plan cards */
+.plan-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.plan-card{border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;position:relative}
+.plan-card.selected{border:2px solid var(--brand-mid);background:var(--brand-lt)}
+.plan-badge{position:absolute;top:-1px;right:12px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:0 0 6px 6px;letter-spacing:.5px}
+.plan-name{font-size:15px;font-weight:700;color:var(--text1);margin-bottom:2px}
+.plan-price{font-size:13px;color:var(--text2);margin-bottom:8px}
+.plan-feat{font-size:12px;color:var(--text2);margin-bottom:4px}
+
+/* photo upload */
+.photo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.photo-slot{
+  aspect-ratio:4/3;border:1.5px dashed var(--border);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:6px;cursor:pointer;
+}
+.photo-slot.main{border-style:solid;border-color:#93c5fd;background:var(--brand-lt)}
+.photo-slot-icon{font-size:24px;color:var(--text2)}
+.photo-slot-label{font-size:11px;color:var(--text2)}
+.photo-slot.filled{background:var(--bg2);border-style:solid}
+
+.form-submit{
+  background:var(--brand-mid);color:#fff;border:none;
+  width:100%;padding:16px;border-radius:10px;font-size:16px;font-weight:700;
+  cursor:pointer;font-family:inherit;
+}
+.form-submit-note{text-align:center;font-size:12px;color:var(--text2);margin-top:10px}
+
+/* ── TRUST STRIP ── */
+.trust-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:40px 0}
+.trust-item{padding:28px 32px;text-align:center;border-right:1px solid var(--border)}
+.trust-item:last-child{border-right:none}
+.trust-icon{font-size:28px;color:var(--brand-mid);margin-bottom:8px}
+.trust-title{font-size:14px;font-weight:700;color:var(--text1);margin-bottom:4px}
+.trust-desc{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* ── FOOTER ── */
+.footer{background:var(--brand);padding:40px 80px 28px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer-logo{font-size:20px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;max-width:280px}
+.footer-col-title{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:8px}
+.footer-bottom{background:#111d2e;padding:16px 80px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.35)}
+
+/* ── COLOR HELPERS ── */
+.bg-gradient-blue{background:linear-gradient(135deg,#c5d9f0,#8cb0d8)}
+.bg-gradient-green{background:linear-gradient(135deg,#d5e8d0,#9dc498)}
+.bg-gradient-purple{background:linear-gradient(135deg,#e0d5f0,#b9a4e0)}
+.bg-gradient-peach{background:linear-gradient(135deg,#e8d5c5,#d4a882)}
+.bg-gradient-dark{background:linear-gradient(135deg,#1e2d45,#2e4a72)}
+.bg-gradient-navy{background:linear-gradient(135deg,#c5d9f0,#a0bfe0)}
+
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;color:#fff}
+.badge-new{background:#16a34a}
+.badge-used{background:#2563eb}
+.badge-hot{background:var(--accent)}
+.badge-vip{background:#7c3aed}
+
+.pill-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
+.pill-green{background:#dcfce7;color:#15803d}
+.pill-blue{background:#dbeafe;color:#1d4ed8}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     PAGE 1 — ГЛАВНАЯ
+══════════════════════════════════════ -->
+<div class="page-wrap">
+  <div class="page-label">01 · Главная страница</div>
+
+  <!-- NAV -->
+  <div class="topbar">
+    <div class="logo"><div class="logo-dot"></div> AutoMarket</div>
+    <div class="nav-links">
+      <a href="#">Купить авто</a>
+      <a href="#">Продать авто</a>
+      <a href="#">Оценить авто</a>
+      <a href="#">Дилеры</a>
+      <a href="#">Новые авто</a>
+    </div>
+    <div class="nav-right">
+      <button class="btn-ghost">Войти</button>
+      <button class="btn-accent">+ Добавить объявление</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Литва &amp; Европа · 47 312 объявлений</div>
+    <h1>Найди своё <span>идеальное</span> авто</h1>
+    <p class="hero-sub">Самый полный выбор подержанных и новых автомобилей по всей Литве. Сравнивай, проверяй, покупай.</p>
+    <div class="search-wrap">
+      <select class="s-sel"><option>Все марки</option><option>BMW</option><option>Toyota</option><option>Mercedes</option></select>
+      <select class="s-sel"><option>Все модели</option></select>
+      <input class="s-inp" type="text" placeholder="Год, цена, пробег или ключевое слово...">
+      <button class="s-btn">🔍 Найти авто</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hstat-num">47 312</div><div class="hstat-label">Объявлений</div></div>
+      <div><div class="hstat-num">1 840</div><div class="hstat-label">Дилеров</div></div>
+      <div><div class="hstat-num">3 100+</div><div class="hstat-label">Марок и моделей</div></div>
+      <div><div class="hstat-num">98%</div><div class="hstat-label">Довольных покупателей</div></div>
+    </div>
+  </div>
+
+  <!-- CHIPS -->
+  <div class="chips">
+    <div class="chip active">🚗 Все авто</div>
+    <div class="chip">💶 До 10 000 €</div>
+    <div class="chip">До 5 лет</div>
+    <div class="chip">⚡ Электро</div>
+    <div class="chip">🌿 Гибрид</div>
+    <div class="chip">Хэтчбек</div>
+    <div class="chip">SUV / Кроссовер</div>
+    <div class="chip">⛽ Дизель</div>
+    <div class="chip">Автомат</div>
+    <div class="chip">Один владелец</div>
+  </div>
+
+  <!-- CAR GRID -->
+  <div class="sec-hd"><h2>Свежие объявления</h2><a href="#">Все объявления →</a></div>
+  <div class="car-grid">
+    <div class="car-card">
+      <div class="car-img bg-gradient-blue">
+        <span class="car-badge badge-new badge">Новое</span>
+        <div class="car-fav">♡</div>
+      </div>
+      <div class="car-body">
+        <div class="car-make">BMW</div>
+        <div class="car-name">5 Series 530d xDrive</div>
+        <div class="car-spec">2022 · 48 000 km · Дизель · Авт.</div>
+        <div class="car-price">29 900 €</div>
+        <div class="car-meta"><span class="car-tag">4×4</span><span class="car-tag">📍 Вильнюс</span></div>
+      </div>
+    </div>
+    <div class="car-card">
+      <div class="car-img bg-gradient-green">
+        <span class="car-badge badge" style="background:#16a34a">Гибрид</span>
+        <div class="car-fav">♡</div>
+      </div>
+      <div class="car-body">
+        <div class="car-make">Toyota</div>
+        <div class="car-name">Camry 2.5 Hybrid Comfort</div>
+        <div class="car-spec">2021 · 62 000 km · Гибрид · Авт.</div>
+        <div class="car-price">22 500 €</div>
+        <div class="car-meta"><span class="car-tag">Eco</span><span class="car-tag">📍 Каунас</span></div>
+      </div>
+    </div>
+    <div class="car-card">
+      <div class="car-img bg-gradient-peach">
+        <span class="car-badge badge-vip badge">VIP</span>
+        <div class="car-fav">♡</div>
+      </div>
+      <div class="car-body">
+        <div class="car-make">Mercedes-Benz</div>
+        <div class="car-name">GLE 400d AMG Line</div>
+        <div class="car-spec">2023 · 18 000 km · Дизель · Авт.</div>
+        <div class="car-price">64 000 €</div>
+        <div class="car-meta"><span class="car-tag">AMG</span><span class="car-tag">📍 Клайпеда</span></div>
+      </div>
+    </div>
+    <div class="car-card">
+      <div class="car-img bg-gradient-purple">
+        <div class="car-fav">🤍</div>
+      </div>
+      <div class="car-body">
+        <div class="car-make">Volkswagen</div>
+        <div class="car-name">Golf 1.5 TSI Life Plus</div>
+        <div class="car-spec">2020 · 85 000 km · Бензин · Мех.</div>
+        <div class="car-price">14 200 €</div>
+        <div class="car-meta"><span class="car-tag">CarPlay</span><span class="car-tag">📍 Шяуляй</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="sec-hd"><h2>По типу кузова</h2><a href="#">Смотреть все →</a></div>
+  <div class="cat-grid">
+    <div class="cat-tile"><div class="cat-icon">🚗</div><div class="cat-label">Седан</div><div class="cat-count">8 420 объяв.</div></div>
+    <div class="cat-tile"><div class="cat-icon">🚙</div><div class="cat-label">Кроссовер</div><div class="cat-count">11 200 объяв.</div></div>
+    <div class="cat-tile"><div class="cat-icon">🚗</div><div class="cat-label">Хэтчбек</div><div class="cat-count">6 870 объяв.</div></div>
+    <div class="cat-tile"><div class="cat-icon">🚐</div><div class="cat-label">Универсал</div><div class="cat-count">4 130 объяв.</div></div>
+    <div class="cat-tile"><div class="cat-icon">🚌</div><div class="cat-label">Минивэн</div><div class="cat-count">2 950 объяв.</div></div>
+    <div class="cat-tile"><div class="cat-icon">🏎</div><div class="cat-label">Кабриолет</div><div class="cat-count">830 объяв.</div></div>
+  </div>
+
+  <!-- BRANDS -->
+  <div class="sec-hd"><h2>Популярные марки</h2></div>
+  <div class="brand-grid">
+    <div class="brand-tile"><div class="brand-logo">BMW</div><div class="brand-name">BMW</div></div>
+    <div class="brand-tile"><div class="brand-logo">VW</div><div class="brand-name">Volkswagen</div></div>
+    <div class="brand-tile"><div class="brand-logo">MB</div><div class="brand-name">Mercedes</div></div>
+    <div class="brand-tile"><div class="brand-logo">AUDI</div><div class="brand-name">Audi</div></div>
+    <div class="brand-tile"><div class="brand-logo">TOYO</div><div class="brand-name">Toyota</div></div>
+    <div class="brand-tile"><div class="brand-logo">ŠKODA</div><div class="brand-name">Škoda</div></div>
+    <div class="brand-tile"><div class="brand-logo">VOLVO</div><div class="brand-name">Volvo</div></div>
+    <div class="brand-tile"><div class="brand-logo">FORD</div><div class="brand-name">Ford</div></div>
+  </div>
+
+  <!-- TRUST -->
+  <div style="margin-top:48px">
+  <div class="trust-strip">
+    <div class="trust-item"><div class="trust-icon">✅</div><div class="trust-title">Проверенные продавцы</div><div class="trust-desc">Все дилеры верифицированы. Отзывы реальных покупателей.</div></div>
+    <div class="trust-item"><div class="trust-icon">📋</div><div class="trust-title">История авто</div><div class="trust-desc">Проверка VIN, пробега и аварийной истории от CarFax.</div></div>
+    <div class="trust-item"><div class="trust-icon">💳</div><div class="trust-title">Кредит и лизинг</div><div class="trust-desc">Подбор финансирования прямо на странице объявления.</div></div>
+    <div class="trust-item"><div class="trust-icon">🛡</div><div class="trust-title">Безопасная сделка</div><div class="trust-desc">Гарантия возврата денег при несоответствии описанию.</div></div>
+  </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>
+      <div class="footer-logo"><div class="logo-dot"></div> AutoMarket</div>
+      <div class="footer-desc">Крупнейший автомобильный маркетплейс Литвы. Более 47 000 объявлений от частных лиц и официальных дилеров.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Покупателям</div>
+      <a href="#" class="footer-col">Поиск авто</a>
+      <a href="#" class="footer-col">Сравнить авто</a>
+      <a href="#" class="footer-col">Проверить VIN</a>
+      <a href="#" class="footer-col">Кредитный калькулятор</a>
+    </div>
+    <div>
+      <div class="footer-col-title">Продавцам</div>
+      <a href="#" class="footer-col">Разместить объявление</a>
+      <a href="#" class="footer-col">VIP-размещение</a>
+      <a href="#" class="footer-col">Для дилеров</a>
+      <a href="#" class="footer-col">Оценить авто</a>
+    </div>
+    <div>
+      <div class="footer-col-title">Компания</div>
+      <a href="#" class="footer-col">О нас</a>
+      <a href="#" class="footer-col">Контакты</a>
+      <a href="#" class="footer-col">Условия использования</a>
+      <a href="#" class="footer-col">Политика конфиденциальности</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 AutoMarket UAB · Вильнюс, Литва</div>
+    <div class="footer-copy">LT · EN · RU</div>
+  </div>
+</div>
+
+<div class="page-divider" style="height:64px"></div>
+
+<!-- ══════════════════════════════════════
+     PAGE 2 — СПИСОК ОБЪЯВЛЕНИЙ
+══════════════════════════════════════ -->
+<div class="page-wrap">
+  <div class="page-label">02 · Список объявлений</div>
+
+  <div class="topbar">
+    <div class="logo"><div class="logo-dot"></div> AutoMarket</div>
+    <div class="nav-links">
+      <a href="#" style="color:#fff;font-weight:600">Купить авто</a>
+      <a href="#">Продать авто</a>
+      <a href="#">Оценить авто</a>
+      <a href="#">Дилеры</a>
+    </div>
+    <div class="nav-right">
+      <button class="btn-ghost">Войти</button>
+      <button class="btn-accent">+ Добавить</button>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB + TITLE -->
+  <div style="padding:18px 80px 0;display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:6px">Главная → <a href="#" style="color:var(--brand-mid)">Купить авто</a> → Седаны</div>
+      <h1 style="font-size:24px;font-weight:700;color:var(--text1)">Седаны в Литве</h1>
+    </div>
+    <div style="display:flex;gap:8px">
+      <div class="chip">BMW <span style="color:var(--text2);margin-left:4px">✕</span></div>
+      <div class="chip active">2020–2024 <span style="color:var(--brand-mid);margin-left:4px">✕</span></div>
+      <div class="chip active">До 40 000 € <span style="color:var(--brand-mid);margin-left:4px">✕</span></div>
+    </div>
+  </div>
+
+  <div class="listing-layout">
+    <!-- FILTER PANEL -->
+    <div class="filter-panel">
+      <div class="fp-title">Фильтры</div>
+
+      <div class="fg">
+        <span class="fg-label">Марка / Модель</span>
+        <select class="fi" style="margin-bottom:8px"><option>Все марки</option><option>BMW</option><option>Toyota</option></select>
+        <select class="fi"><option>Все модели</option></select>
+      </div>
+
+      <div class="fg">
+        <span class="fg-label">Год выпуска</span>
+        <div class="fi-row"><input class="fi" placeholder="от 2015"><input class="fi" placeholder="до 2025"></div>
+      </div>
+
+      <div class="fg">
+        <span class="fg-label">Цена (€)</span>
+        <div class="fi-row"><input class="fi" placeholder="от"><input class="fi" placeholder="до 40 000"></div>
+      </div>
+
+      <div class="fg">
+        <span class="fg-label">Пробег (км)</span>
+        <div class="fi-row"><input class="fi" placeholder="от"><input class="fi" placeholder="до"></div>
+      </div>
+
+      <div class="fg">
+        <span class="fg-label">Топливо</span>
+        <label class="fcheck"><input type="checkbox" checked> Дизель <span style="margin-left:auto;font-size:11px;color:var(--text2)">1 820</span></label>
+        <label class="fcheck"><input type="checkbox" checked> Бензин <span style="margin-left:auto;font-size:11px;color:var(--text2)">920</span></label>
+        <label class="fcheck"><input type="checkbox"> Гибрид <span style="margin-left:auto;font-size:11px;color:var(--text2)">340</span></label>
+        <label class="fcheck"><input type="checkbox"> Электро <span style="margin-left:auto;font-size:11px;color:var(--text2)">204</span></label>
+      </div>
+
+      <div class="fg">
+        <span class="fg-label">Коробка</span>
+        <label class="fcheck"><input type="checkbox" checked> Автомат</label>
+        <label class="fcheck"><input type="checkbox"> Механика</label>
+        <label class="fcheck"><input type="checkbox"> Полуавтомат</label>
+      </div>
+
+      <div class="fg">
+        <span class="fg-label">Привод</span>
+        <label class="fcheck"><input type="checkbox"> Передний</label>
+        <label class="fcheck"><input type="checkbox" checked> Полный 4×4</label>
+        <label class="fcheck"><input type="checkbox"> Задний</label>
+      </div>
+
+      <div class="fg">
+        <span class="fg-label">Регион</span>
+        <select class="fi"><option>Весь регион</option><option>Вильнюс</option><option>Каунас</option><option>Клайпеда</option></select>
+      </div>
+
+      <button class="f-apply">Применить фильтры</button>
+      <div class="f-reset">Сбросить всё</div>
+    </div>
+
+    <!-- LIST -->
+    <div>
+      <div class="list-toolbar">
+        <span class="list-count">Найдено <strong>3 284</strong> объявления</span>
+        <div class="sort-row">
+          <select class="sort-sel"><option>По дате: новые первыми</option><option>Цена ↑</option><option>Цена ↓</option><option>Пробег ↑</option></select>
+          <div class="view-btns">
+            <button class="vbtn">☰</button>
+            <button class="vbtn active">⊞</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AD BANNER -->
+      <div class="ad-banner">
+        <div class="ad-text"><strong>Продайте свой автомобиль быстро</strong>Бесплатное размещение · Более 50 000 покупателей каждый день</div>
+        <button class="ad-btn">+ Разместить объявление</button>
+      </div>
+
+      <!-- H-CARD 1 -->
+      <div class="hcard">
+        <div class="hcard-img bg-gradient-blue" style="min-height:180px">
+          <span class="car-badge badge-new badge" style="position:absolute;top:10px;left:10px">Новое</span>
+        </div>
+        <div class="hcard-body">
+          <div class="hcard-make">BMW</div>
+          <div class="hcard-name">5 Series 530d xDrive Luxury</div>
+          <div class="hcard-spec">2022 · 48 000 km · Дизель · Автомат · 4×4 · 265 л.с.</div>
+          <div class="hcard-feats">
+            <span class="hcard-feat">Кожаный салон</span>
+            <span class="hcard-feat">Панорамная крыша</span>
+            <span class="hcard-feat">Адаптивный круиз</span>
+            <span class="hcard-feat">Парктроник 360°</span>
+            <span class="hcard-feat">Подогрев сидений</span>
+          </div>
+          <div class="hcard-loc">📍 Вильнюс · 2 часа назад · 👁 1 842 просмотра</div>
+        </div>
+        <div class="hcard-price-col">
+          <div>
+            <div class="hp-big">29 900 €</div>
+            <div class="hp-sub">≈ 103 200 Lt</div>
+          </div>
+          <div style="width:100%">
+            <button class="btn-call">📞 Позвонить</button>
+            <button class="btn-save">🤍 Сохранить</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- H-CARD 2 -->
+      <div class="hcard">
+        <div class="hcard-img bg-gradient-green" style="min-height:180px"></div>
+        <div class="hcard-body">
+          <div class="hcard-make">Toyota</div>
+          <div class="hcard-name">Camry 2.5 Hybrid Comfort+</div>
+          <div class="hcard-spec">2021 · 62 000 km · Гибрид · Автомат · 218 л.с.</div>
+          <div class="hcard-feats">
+            <span class="hcard-feat">Камера 360°</span>
+            <span class="hcard-feat">Подогрев сидений</span>
+            <span class="hcard-feat">LED фары</span>
+            <span class="hcard-feat">Apple CarPlay</span>
+          </div>
+          <div class="hcard-loc">📍 Каунас · 5 часов назад · 👁 924 просмотра</div>
+        </div>
+        <div class="hcard-price-col">
+          <div>
+            <div class="hp-big">22 500 €</div>
+            <div class="hp-sub">≈ 77 600 Lt</div>
+          </div>
+          <div style="width:100%">
+            <button class="btn-call">📞 Позвонить</button>
+            <button class="btn-save">🤍 Сохранить</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- H-CARD 3 -->
+      <div class="hcard">
+        <div class="hcard-img bg-gradient-purple" style="min-height:180px">
+          <span class="car-badge badge-vip badge" style="position:absolute;top:10px;left:10px">VIP</span>
+        </div>
+        <div class="hcard-body">
+          <div class="hcard-make">Volkswagen</div>
+          <div class="hcard-name">Golf 1.5 TSI Life Plus DSG</div>
+          <div class="hcard-spec">2020 · 85 000 km · Бензин · Механика · 150 л.с.</div>
+          <div class="hcard-feats">
+            <span class="hcard-feat">Климат-контроль</span>
+            <span class="hcard-feat">Apple CarPlay</span>
+            <span class="hcard-feat">Парктроник</span>
+          </div>
+          <div class="hcard-loc">📍 Шяуляй · Вчера · 👁 548 просмотров</div>
+        </div>
+        <div class="hcard-price-col">
+          <div>
+            <div class="hp-big">14 200 €</div>
+            <div class="hp-sub">≈ 49 000 Lt</div>
+          </div>
+          <div style="width:100%">
+            <button class="btn-call">📞 Позвонить</button>
+            <button class="btn-save">🤍 Сохранить</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGINATION -->
+      <div style="display:flex;justify-content:center;gap:6px;margin-top:24px">
+        <div style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;color:var(--text2)">←</div>
+        <div style="width:36px;height:36px;background:var(--brand-mid);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:700">1</div>
+        <div style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer">2</div>
+        <div style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer">3</div>
+        <div style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer">…</div>
+        <div style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer">66</div>
+        <div style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;color:var(--text2)">→</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-divider" style="height:64px"></div>
+
+<!-- ══════════════════════════════════════
+     PAGE 3 — СТРАНИЦА АВТО
+══════════════════════════════════════ -->
+<div class="page-wrap">
+  <div class="page-label">03 · Страница автомобиля</div>
+
+  <div class="topbar">
+    <div class="logo"><div class="logo-dot"></div> AutoMarket</div>
+    <div class="nav-links"><a href="#">Купить авто</a><a href="#">Продать авто</a><a href="#">Оценить авто</a></div>
+    <div class="nav-right"><button class="btn-ghost">Войти</button><button class="btn-accent">+ Добавить</button></div>
+  </div>
+
+  <div class="detail-breadcrumb">
+    <a href="#" style="color:var(--brand-mid)">← Назад к результатам</a>
+    <span style="color:var(--border)">|</span>
+    <span>Главная → Sedan → BMW → 5 Series</span>
+  </div>
+
+  <!-- TITLE ROW -->
+  <div style="padding:0 80px;display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px">
+    <div>
+      <h1 style="font-size:28px;font-weight:700;color:var(--text1);margin-bottom:4px">BMW 5 Series 530d xDrive Luxury</h1>
+      <div style="font-size:14px;color:var(--text2);display:flex;align-items:center;gap:16px">
+        <span>2022 год</span>
+        <span>·</span>
+        <span>48 000 km</span>
+        <span>·</span>
+        <span>📍 Вильнюс</span>
+        <span>·</span>
+        <span style="color:#f59e0b">★★★★½</span>
+        <span>Объявление #AM-448291</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <span class="pill-tag pill-green">Новое объявление</span>
+      <span style="font-size:13px;color:var(--text2);cursor:pointer">📤 Поделиться</span>
+      <span style="font-size:13px;color:var(--text2);cursor:pointer">🚩 Пожаловаться</span>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <!-- LEFT COLUMN -->
+    <div>
+      <!-- GALLERY -->
+      <div class="gallery">
+        <div class="gal-main bg-gradient-blue">
+          <div style="font-size:18px;font-weight:600;color:rgba(255,255,255,.6)">BMW 5 Series · Главное фото</div>
+          <div class="gal-count">📷 24 фото</div>
+        </div>
+        <div class="gal-thumbs">
+          <div class="gal-th bg-gradient-blue" style="opacity:.8"></div>
+          <div class="gal-th bg-gradient-blue" style="opacity:.65"></div>
+          <div class="gal-th bg-gradient-navy" style="opacity:.7"></div>
+          <div class="gal-th bg-gradient-blue" style="opacity:.55"></div>
+          <div class="gal-th bg-gradient-navy" style="display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:rgba(255,255,255,.8)">+19</div>
+        </div>
+      </div>
+
+      <!-- META STRIP -->
+      <div class="meta-strip">
+        <div class="ms-cell"><div class="ms-label">Пробег</div><div class="ms-val">48 000 km</div></div>
+        <div class="ms-cell"><div class="ms-label">Топливо</div><div class="ms-val">Дизель</div></div>
+        <div class="ms-cell"><div class="ms-label">Коробка</div><div class="ms-val">Автомат</div></div>
+        <div class="ms-cell"><div class="ms-label">Мощность</div><div class="ms-val">265 л.с.</div></div>
+        <div class="ms-cell"><div class="ms-label">Привод</div><div class="ms-val">4×4</div></div>
+      </div>
+
+      <!-- TABS -->
+      <div class="detail-tabs">
+        <button class="dtab active">Характеристики</button>
+        <button class="dtab">Оснащение</button>
+        <button class="dtab">История авто</button>
+        <button class="dtab">Похожие авто</button>
+        <button class="dtab">Отзывы о модели</button>
+      </div>
+
+      <!-- SPECS -->
+      <div class="spec-grid">
+        <div class="sp-label">Тип кузова</div><div class="sp-val">Седан</div>
+        <div class="sp-label">Год выпуска</div><div class="sp-val">2022</div>
+        <div class="sp-label">Цвет кузова</div><div class="sp-val">Чёрный металлик</div>
+        <div class="sp-label">Объём двигателя</div><div class="sp-val">3.0 л · Рядный 6</div>
+        <div class="sp-label">Привод</div><div class="sp-val">Полный (xDrive 4×4)</div>
+        <div class="sp-label">Страна сборки</div><div class="sp-val">Германия</div>
+        <div class="sp-label">Количество владельцев</div><div class="sp-val">1 владелец</div>
+        <div class="sp-label">VIN номер</div><div class="sp-val" style="font-family:monospace;font-size:12px">WBA53BJ0XN****8471</div>
+        <div class="sp-label">Таможня</div><div class="sp-val" style="color:#16a34a">✅ Растаможен в ЛТ</div>
+        <div class="sp-label">Техосмотр до</div><div class="sp-val">Март 2026</div>
+      </div>
+
+      <div class="detail-desc">
+        Автомобиль в отличном состоянии. Один владелец с новой, приобретён у официального дилера BMW в Германии. Полная сервисная история у дилера, все регламентные работы выполнены в срок. Кузов без аварий, подтверждено Carfax. Салон без дефектов, кожа в идеале. Все опции работают исправно. Возможен осмотр на независимой СТО. Торг при реальном осмотре.
+      </div>
+    </div>
+
+    <!-- RIGHT — PRICE CARD -->
+    <div>
+      <div class="price-card">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2px">
+          <div class="pc-price">29 900 €</div>
+          <span class="pill-tag pill-blue" style="font-size:11px">Цена без торга</span>
+        </div>
+        <div class="pc-sub">≈ 103 200 Lt · Обновлено сегодня</div>
+        <div class="pc-actions">
+          <button class="btn-primary">📞 Показать номер</button>
+          <button class="btn-secondary">✉️ Написать продавцу</button>
+        </div>
+        <div class="pc-sub-actions">
+          <button class="btn-sm">🤍 Сохранить</button>
+          <button class="btn-sm">🏦 Кредит</button>
+          <button class="btn-sm">📊 Оценить</button>
+        </div>
+
+        <!-- SELLER -->
+        <div class="seller-divider">
+          <div class="seller-row">
+            <div class="s-avatar">АК</div>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div class="s-name">Андрей Климов</div>
+                <div class="s-type">Частный</div>
+              </div>
+              <div class="stars">★★★★½</div>
+            </div>
+          </div>
+          <div class="s-stats">
+            <div class="s-stat">🚗 3 объявления</div>
+            <div class="s-stat">📅 На сайте с 2019</div>
+            <div class="s-stat">✅ Верифицирован</div>
+          </div>
+        </div>
+
+        <div class="pc-meta">
+          <div class="pc-meta-row">👁 1 842 просмотра · Добавлено 2 часа назад</div>
+          <div class="pc-meta-row">📍 Вильнюс, р-н Антакальнис</div>
+          <div class="pc-meta-row" style="color:var(--brand-mid);cursor:pointer;margin-top:6px">⚠️ Сообщить о проблеме</div>
+        </div>
+      </div>
+
+      <!-- LOAN CALC TEASER -->
+      <div style="background:var(--brand-lt);border:1px solid #bfdbfe;border-radius:var(--radius);padding:16px;margin-top:14px">
+        <div style="font-size:13px;font-weight:700;color:var(--brand);margin-bottom:6px">💳 Кредитный калькулятор</div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:10px">Первый взнос 30% · 60 месяцев</div>
+        <div style="font-size:20px;font-weight:700;color:var(--brand-mid)">≈ 320 € / мес.</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px">Предварительный расчёт без обязательств</div>
+        <button style="width:100%;margin-top:10px;background:var(--brand-mid);color:#fff;border:none;padding:8px;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;font-weight:600">Подать заявку на кредит</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIMILAR -->
+  <div class="sec-hd" style="margin-top:36px"><h2>Похожие объявления</h2><a href="#">Смотреть все →</a></div>
+  <div class="similar-strip">
+    <div class="car-card">
+      <div class="car-img bg-gradient-blue" style="height:140px"></div>
+      <div class="car-body">
+        <div class="car-make">BMW</div>
+        <div class="car-name">520d xDrive</div>
+        <div class="car-spec">2021 · 65 000 km · Дизель</div>
+        <div class="car-price">24 500 €</div>
+        <div class="car-meta"><span class="car-tag">📍 Вильнюс</span></div>
+      </div>
+    </div>
+    <div class="car-card">
+      <div class="car-img bg-gradient-peach" style="height:140px"></div>
+      <div class="car-body">
+        <div class="car-make">Mercedes-Benz</div>
+        <div class="car-name">E 300 d 4Matic</div>
+        <div class="car-spec">2022 · 42 000 km · Дизель</div>
+        <div class="car-price">34 900 €</div>
+        <div class="car-meta"><span class="car-tag">📍 Каунас</span></div>
+      </div>
+    </div>
+    <div class="car-card">
+      <div class="car-img bg-gradient-purple" style="height:140px"></div>
+      <div class="car-body">
+        <div class="car-make">Audi</div>
+        <div class="car-name">A6 3.0 TDI Quattro</div>
+        <div class="car-spec">2021 · 58 000 km · Дизель</div>
+        <div class="car-price">27 800 €</div>
+        <div class="car-meta"><span class="car-tag">📍 Вильнюс</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-divider" style="height:64px"></div>
+
+<!-- ══════════════════════════════════════
+     PAGE 4 — ПРОДАТЬ АВТО
+══════════════════════════════════════ -->
+<div class="page-wrap" style="padding-bottom:60px">
+  <div class="page-label">04 · Разместить объявление</div>
+
+  <div class="topbar">
+    <div class="logo"><div class="logo-dot"></div> AutoMarket</div>
+    <div class="nav-links"><a href="#">Купить авто</a><a href="#" style="color:#fff;font-weight:600">Продать авто</a><a href="#">Оценить авто</a></div>
+    <div class="nav-right"><button class="btn-ghost">Войти</button></div>
+  </div>
+
+  <!-- SELL HERO -->
+  <div class="sell-hero">
+    <div class="sell-eyebrow">Продажа авто</div>
+    <h1>Разместите объявление за 5 минут</h1>
+    <p>Более 50 000 покупателей каждый день — ваше авто увидят быстро</p>
+  </div>
+
+  <div style="max-width:760px;margin:0 auto;padding:0 80px">
+    <!-- STEPS -->
+    <div class="steps-bar" style="margin-bottom:28px">
+      <div class="step-item">
+        <div class="step-num curr">1</div>
+        <span class="step-label active">Данные авто</span>
+      </div>
+      <div class="step-line done"></div>
+      <div class="step-item">
+        <div class="step-num todo">2</div>
+        <span class="step-label todo">Фотографии</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-item">
+        <div class="step-num todo">3</div>
+        <span class="step-label todo">Цена и контакты</span>
+      </div>
+    </div>
+
+    <!-- FORM CARD 1 — Основная информация -->
+    <div class="form-card">
+      <div class="form-title">Основная информация</div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label class="f-label">Марка *</label>
+          <select class="f-input"><option>— Выберите марку —</option><option>BMW</option><option>Toyota</option><option>Volkswagen</option><option>Mercedes-Benz</option></select>
+        </div>
+        <div class="form-field">
+          <label class="f-label">Модель *</label>
+          <select class="f-input"><option>— Сначала выберите марку —</option></select>
+        </div>
+        <div class="form-field">
+          <label class="f-label">Год выпуска *</label>
+          <select class="f-input"><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option></select>
+        </div>
+        <div class="form-field">
+          <label class="f-label">Пробег (км) *</label>
+          <input class="f-input" type="number" placeholder="например, 48 000">
+        </div>
+        <div class="form-field">
+          <label class="f-label">Тип кузова *</label>
+          <select class="f-input"><option>Седан</option><option>Хэтчбек</option><option>Кроссовер/SUV</option><option>Универсал</option><option>Минивэн</option></select>
+        </div>
+        <div class="form-field">
+          <label class="f-label">Цвет кузова</label>
+          <select class="f-input"><option>Чёрный</option><option>Белый</option><option>Серый</option><option>Синий</option><option>Красный</option></select>
+        </div>
+        <div class="form-field">
+          <label class="f-label">Тип топлива *</label>
+          <select class="f-input"><option>Дизель</option><option>Бензин</option><option>Гибрид</option><option>Электро</option><option>Газ / LPG</option></select>
+        </div>
+        <div class="form-field">
+          <label class="f-label">Коробка передач *</label>
+          <select class="f-input"><option>Автоматическая</option><option>Механическая</option><option>Полуавтоматическая</option></select>
+        </div>
+        <div class="form-field">
+          <label class="f-label">Объём двигателя (л)</label>
+          <input class="f-input" type="text" placeholder="напр. 2.0">
+        </div>
+        <div class="form-field">
+          <label class="f-label">Мощность (л.с.)</label>
+          <input class="f-input" type="number" placeholder="напр. 150">
+        </div>
+        <div class="form-field full">
+          <label class="f-label">VIN номер <span style="color:var(--text2);font-weight:400">(необязательно, но повышает доверие)</span></label>
+          <input class="f-input" type="text" placeholder="17 символов, например WBA53BJ0X…" style="font-family:monospace">
+          <span class="f-hint">Объявления с VIN получают на 40% больше просмотров</span>
+        </div>
+        <div class="form-field full">
+          <label class="f-label">Описание</label>
+          <textarea class="f-textarea" placeholder="Расскажите о состоянии, истории обслуживания, особенностях и опциях. Чем подробнее — тем быстрее найдёте покупателя."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM CARD 2 — Фото (preview) -->
+    <div class="form-card" style="opacity:.7">
+      <div class="form-title" style="color:var(--text2)">Шаг 2 · Фотографии <span style="font-size:12px;font-weight:400">(после заполнения шага 1)</span></div>
+      <div class="photo-grid">
+        <div class="photo-slot main"><div class="photo-slot-icon">📷</div><div class="photo-slot-label">Главное фото</div></div>
+        <div class="photo-slot"><div class="photo-slot-icon">+</div><div class="photo-slot-label">Добавить</div></div>
+        <div class="photo-slot"><div class="photo-slot-icon">+</div><div class="photo-slot-label">Добавить</div></div>
+        <div class="photo-slot"><div class="photo-slot-icon">+</div><div class="photo-slot-label">Добавить</div></div>
+        <div class="photo-slot"><div class="photo-slot-icon">+</div><div class="photo-slot-label">Добавить</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:10px">Максимум 24 фото · JPG, PNG · до 10 МБ каждое</div>
+    </div>
+
+    <!-- FORM CARD 3 — Тариф -->
+    <div class="form-card" style="opacity:.7">
+      <div class="form-title" style="color:var(--text2)">Шаг 3 · Тип объявления</div>
+      <div class="plan-grid">
+        <div class="plan-card selected">
+          <div class="plan-name">Стандарт</div>
+          <div class="plan-price">Бесплатно · 30 дней</div>
+          <div class="plan-feat">✓ До 12 фото</div>
+          <div class="plan-feat">✓ Базовое размещение</div>
+        </div>
+        <div class="plan-card">
+          <div class="plan-badge">Популярно</div>
+          <div class="plan-name">Топ</div>
+          <div class="plan-price">4.99 € · 30 дней</div>
+          <div class="plan-feat">✓ Вверху списка 7 дней</div>
+          <div class="plan-feat">✓ До 24 фото</div>
+        </div>
+        <div class="plan-card">
+          <div class="plan-name">VIP</div>
+          <div class="plan-price">9.99 € · 60 дней</div>
+          <div class="plan-feat">✓ Всегда вверху</div>
+          <div class="plan-feat">✓ Значок VIP · Соцсети</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <button class="form-submit">Далее: добавить фотографии →</button>
+    <div class="form-submit-note">Размещая объявление, вы соглашаетесь с <a href="#" style="color:var(--brand-mid)">Условиями использования</a></div>
+  </div>
+</div>
+
+</body>
+</html>
