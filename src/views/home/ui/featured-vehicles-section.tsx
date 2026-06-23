@@ -1,68 +1,64 @@
+import Image from "next/image";
 import Link from "next/link";
 
-import type { FeaturedCar } from "../model/mock-home-data";
+import type { HomeAdCard } from "../model/home-page-types";
 
 type FeaturedVehiclesSectionProps = {
-  featuredCars: FeaturedCar[];
-};
-
-const badgeToneClasses: Record<NonNullable<FeaturedCar["badge"]>["tone"], string> = {
-  blue: "bg-blue-600",
-  green: "bg-emerald-600",
-  orange: "bg-orange-600",
+  featuredCars: HomeAdCard[];
 };
 
 export function FeaturedVehiclesSection({ featuredCars }: FeaturedVehiclesSectionProps) {
   return (
     <>
-      <SectionHeader href="/products" title="Fresh listings" />
+      <SectionHeader href="/vehicles" title="Fresh ads" />
       <section className="mx-auto grid w-full max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-        {featuredCars.map((car) => (
-          <article
-            className="overflow-hidden rounded-[14px] border border-slate-200 bg-white"
-            key={`${car.brand}-${car.name}`}
-          >
-            <div
-              className={`relative flex h-44 items-center justify-center bg-gradient-to-br ${car.gradient}`}
+        {featuredCars.length > 0 ? (
+          featuredCars.map((car) => (
+            <article
+              className="overflow-hidden rounded-[14px] border border-slate-200 bg-white"
+              key={`${car.brand}-${car.title}-${car.href}`}
             >
-              {car.badge ? (
-                <span
-                  className={`absolute left-3 top-3 rounded-md px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white ${badgeToneClasses[car.badge.tone]}`}
-                >
-                  {car.badge.label}
-                </span>
-              ) : null}
-              <button
-                aria-label={`Save ${car.name}`}
-                className="absolute right-3 top-3 flex size-8 items-center justify-center rounded-full bg-white/90 text-sm text-slate-500"
-                type="button"
-              >
-                Save
-              </button>
-              <span className="rounded-md bg-white/20 px-3 py-2 text-sm font-semibold text-white/75">
-                {car.brand}
-              </span>
-            </div>
-            <div className="p-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                {car.brand}
-              </p>
-              <h3 className="mt-1 text-base font-semibold text-slate-950">{car.name}</h3>
-              <p className="mt-1 text-sm text-slate-500">{car.specs}</p>
-              <p className="mt-3 text-xl font-bold text-slate-950">{car.price}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {car.tags.map((tag) => (
-                  <span className="rounded-md bg-slate-100 px-2 py-1 text-xs text-slate-500" key={tag}>
-                    {tag}
-                  </span>
-                ))}
-                <span className="rounded-md bg-slate-100 px-2 py-1 text-xs text-slate-500">
-                  {car.location}
-                </span>
+              <Link className="block" href={car.href}>
+                <div className="relative flex h-44 items-center justify-center overflow-hidden bg-slate-100">
+                  {car.imageUrl ? (
+                    <Image
+                      alt={car.title}
+                      className="object-cover"
+                      fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                      src={car.imageUrl}
+                      unoptimized
+                    />
+                  ) : (
+                    <span className="text-sm font-semibold text-slate-500">No image</span>
+                  )}
+                </div>
+              </Link>
+              <div className="p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  {car.brand}
+                </p>
+                <h3 className="mt-1 text-base font-semibold text-slate-950">{car.title}</h3>
+                <p className="mt-1 text-sm text-slate-500">{car.specsLabel}</p>
+                <p className="mt-3 text-xl font-bold text-slate-950">{car.priceLabel}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {car.tags.map((tag) => (
+                    <span
+                      className="rounded-md bg-slate-100 px-2 py-1 text-xs text-slate-500"
+                      key={tag}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))
+        ) : (
+          <div className="rounded-[14px] border border-dashed border-slate-200 bg-white p-5 text-sm text-slate-500 md:col-span-2 lg:col-span-4">
+            Ads are unavailable right now.
+          </div>
+        )}
       </section>
     </>
   );

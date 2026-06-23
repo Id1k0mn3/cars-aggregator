@@ -1,32 +1,14 @@
 import type { Vehicle, VehicleHorizontalCardViewModel } from "@/src/entities/vehicle";
-import { getApiBaseUrl } from "@/src/shared/config";
+import { resolveImageUrl } from "@/src/shared/lib/resolve-image-url";
 
 const formatNumber = (value: number | null) => {
   return value === null ? "N/A" : new Intl.NumberFormat("en-US").format(value);
 };
 
 const formatPrice = (value: number | null) => {
-  return value === null ? "Price on request" : `${new Intl.NumberFormat("en-US").format(value)} EUR`;
-};
-
-const resolveVehicleImageUrl = (imageUrl: string | undefined) => {
-  if (!imageUrl) {
-    return undefined;
-  }
-
-  try {
-    if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
-      return new URL(imageUrl).toString();
-    }
-
-    if (imageUrl.startsWith("/")) {
-      return new URL(imageUrl, getApiBaseUrl()).toString();
-    }
-  } catch {
-    return undefined;
-  }
-
-  return undefined;
+  return value === null
+    ? "Price on request"
+    : `${new Intl.NumberFormat("en-US").format(value)} EUR`;
 };
 
 export const mapVehicleToHorizontalCard = (vehicle: Vehicle): VehicleHorizontalCardViewModel => {
@@ -43,9 +25,9 @@ export const mapVehicleToHorizontalCard = (vehicle: Vehicle): VehicleHorizontalC
       (feature): feature is string => typeof feature === "string" && feature.length > 0,
     ),
     fuel,
-    href: `/products/${vehicle.id}`,
+    href: `/vehicles/${vehicle.id}`,
     id: vehicle.id.toString(),
-    imageUrl: resolveVehicleImageUrl(vehicle.images[0]),
+    imageUrl: resolveImageUrl(vehicle.images[0]),
     location: "Location N/A",
     mileage,
     postedAt: vehicle.createdAt === null ? "Date N/A" : vehicle.createdAt.toLocaleDateString(),

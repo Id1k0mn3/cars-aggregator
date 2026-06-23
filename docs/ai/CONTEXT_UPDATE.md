@@ -13,6 +13,8 @@ This file should not become a changelog for every small implementation step.
 - Frontend must not depend on backend internals.
 - Main architectural rule: Feature-Sliced Design.
 - Main implementation rules: strict TypeScript, no `any`, no new packages without approval, API DTOs separated from frontend domain models.
+- Home page data is now fetched server-side from `/v1/vehicles/home/` and mapped before reaching UI components.
+- API base URL resolution now prefers `API_BASE_URL` and keeps `NEXT_PUBLIC_API_BASE_URL` as a fallback for existing shared usage.
 
 ## Current product direction
 

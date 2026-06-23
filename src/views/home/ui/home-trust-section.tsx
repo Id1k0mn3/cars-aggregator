@@ -1,7 +1,7 @@
-import type { TrustItem } from "../model/mock-home-data";
+import type { HomeTrustItem } from "../model/home-page-types";
 
 type HomeTrustSectionProps = {
-  trustItems: TrustItem[];
+  trustItems: HomeTrustItem[];
 };
 
 export function HomeTrustSection({ trustItems }: HomeTrustSectionProps) {

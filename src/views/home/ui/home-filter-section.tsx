@@ -1,32 +1,39 @@
 import Link from "next/link";
 
-import type { HomeTile } from "../model/mock-home-data";
+import type { HomeBodyTile, HomeBrandTile, HomeQuickFilter } from "../model/home-page-types";
 
 type HomeFilterSectionProps = {
-  quickFilters: string[];
+  quickFilters: HomeQuickFilter[];
 };
 
 type HomeCategorySectionProps = {
-  bodyTypes: HomeTile[];
-  popularBrands: HomeTile[];
+  bodyTypes: HomeBodyTile[];
+  popularBrands: HomeBrandTile[];
 };
 
 export function HomeFilterSection({ quickFilters }: HomeFilterSectionProps) {
   return (
     <section className="mx-auto flex w-full max-w-7xl flex-wrap gap-2 px-4 pt-6 sm:px-6 lg:px-8">
-      {quickFilters.map((filter, index) => (
-        <button
-          className={
-            index === 0
-              ? "rounded-full border border-blue-300 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700"
-              : "rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-500"
-          }
-          key={filter}
-          type="button"
-        >
-          {filter}
-        </button>
-      ))}
+      {quickFilters.map((filter, index) => {
+        const className =
+          index === 0
+            ? "rounded-full border border-blue-300 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700"
+            : "rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-500";
+
+        if (filter.href) {
+          return (
+            <Link className={className} href={filter.href} key={filter.label}>
+              {filter.label}
+            </Link>
+          );
+        }
+
+        return (
+          <span className={className} key={filter.label}>
+            {filter.label}
+          </span>
+        );
+      })}
     </section>
   );
 }
@@ -34,37 +41,60 @@ export function HomeFilterSection({ quickFilters }: HomeFilterSectionProps) {
 export function HomeCategorySection({ bodyTypes, popularBrands }: HomeCategorySectionProps) {
   return (
     <>
-      <SectionHeader href="/products" title="By body type" />
+      <SectionHeader href="/vehicles" title="By body type" />
       <section className="mx-auto grid w-full max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 md:grid-cols-3 lg:grid-cols-6 lg:px-8">
-        {bodyTypes.map((bodyType) => (
-          <button
-            className="rounded-[10px] border border-slate-200 bg-white p-5 text-center"
-            key={bodyType.label}
-            type="button"
-          >
-            <span className="mx-auto flex h-10 items-center justify-center text-sm font-bold text-blue-600">
-              {bodyType.icon}
-            </span>
-            <span className="mt-2 block text-sm font-semibold text-slate-950">{bodyType.label}</span>
-            <span className="mt-1 block text-xs text-slate-500">{bodyType.count}</span>
-          </button>
-        ))}
+        {bodyTypes.length > 0 ? (
+          bodyTypes.map(
+            (bodyType) =>
+              Boolean(bodyType.countLabel) && (
+                <Link
+                  className="rounded-[10px] border border-slate-200 bg-white p-5 text-center"
+                  href={bodyType.href}
+                  key={bodyType.label}
+                >
+                  <span className="mx-auto flex h-10 items-center justify-center text-sm font-bold text-blue-600">
+                    Body
+                  </span>
+                  <span className="mt-2 block text-sm font-semibold text-slate-950">
+                    {bodyType.label}
+                  </span>
+                  <span className="mt-1 block text-xs text-slate-500">{bodyType.countLabel}</span>
+                </Link>
+              ),
+          )
+        ) : (
+          <div className="rounded-[10px] border border-dashed border-slate-200 bg-white p-5 text-center text-sm text-slate-500 lg:col-span-6">
+            Body categories are unavailable right now.
+          </div>
+        )}
       </section>
 
       <SectionHeader title="Popular makes" />
       <section className="mx-auto grid w-full max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 md:grid-cols-4 lg:grid-cols-8 lg:px-8">
-        {popularBrands.map((brand) => (
-          <button
-            className="rounded-[10px] border border-slate-200 bg-white p-4 text-center"
-            key={brand.name}
-            type="button"
-          >
-            <span className="mx-auto flex h-9 w-14 items-center justify-center rounded-md bg-slate-100 text-xs font-semibold text-slate-500">
-              {brand.logo}
-            </span>
-            <span className="mt-2 block text-sm font-semibold text-slate-950">{brand.name}</span>
-          </button>
-        ))}
+        {popularBrands.length > 0 ? (
+          popularBrands.map(
+            (brand) =>
+              Boolean(brand.countLabel) && (
+                <Link
+                  className="rounded-[10px] border border-slate-200 bg-white p-4 text-center"
+                  href={brand.href}
+                  key={brand.label}
+                >
+                  <span className="mx-auto flex h-9 w-14 items-center justify-center rounded-md bg-slate-100 text-xs font-semibold text-slate-500">
+                    Brand
+                  </span>
+                  <span className="mt-2 block text-sm font-semibold text-slate-950">
+                    {brand.label}
+                  </span>
+                  <span className="mt-1 block text-xs text-slate-500">{brand.countLabel}</span>
+                </Link>
+              ),
+          )
+        ) : (
+          <div className="rounded-[10px] border border-dashed border-slate-200 bg-white p-4 text-center text-sm text-slate-500 lg:col-span-8">
+            Brand categories are unavailable right now.
+          </div>
+        )}
       </section>
     </>
   );

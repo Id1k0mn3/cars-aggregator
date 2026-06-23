@@ -1,6 +1,6 @@
 import type { VehicleCardViewModel } from "@/src/entities/vehicle";
 
-export type ProductDetailViewModel = {
+export type VehicleDetailViewModel = {
   bodyType: string;
   brand: string;
   color: string;
@@ -21,7 +21,7 @@ export type ProductDetailViewModel = {
     name: string;
     type: string;
   };
-  similarProducts: VehicleCardViewModel[];
+  similarVehicles: VehicleCardViewModel[];
   technicalInspection: string;
   title: string;
   transmission: string;
@@ -29,12 +29,12 @@ export type ProductDetailViewModel = {
   year: string;
 };
 
-export const mockProductDetail: ProductDetailViewModel = {
+export const mockVehicleDetail: VehicleDetailViewModel = {
   bodyType: "Sedan",
   brand: "BMW",
   color: "Black metallic",
   description:
-    "Well-kept car with a clean service history and strong equipment package. This is placeholder copy for the product foundation and will be replaced by real listing content once the detail API contract is ready.",
+    "Well-kept car with a clean service history and strong equipment package. This is placeholder copy for the vehicle foundation and will be replaced by real listing content once the detail API contract is ready.",
   drive: "xDrive 4x4",
   engine: "3.0 l inline 6",
   fuel: "Diesel",
@@ -51,11 +51,11 @@ export const mockProductDetail: ProductDetailViewModel = {
     name: "Andrej Klimov",
     type: "Private seller",
   },
-  similarProducts: [
+  similarVehicles: [
     {
       brand: "BMW",
       fuel: "Diesel",
-      href: "/products/bmw-520d-xdrive",
+      href: "/vehicles/bmw-520d-xdrive",
       id: "bmw-520d-xdrive",
       location: "Vilnius",
       mileage: "65,000 km",
@@ -66,7 +66,7 @@ export const mockProductDetail: ProductDetailViewModel = {
     {
       brand: "Mercedes-Benz",
       fuel: "Diesel",
-      href: "/products/mercedes-e300d",
+      href: "/vehicles/mercedes-e300d",
       id: "mercedes-e300d",
       location: "Kaunas",
       mileage: "42,000 km",
@@ -77,7 +77,7 @@ export const mockProductDetail: ProductDetailViewModel = {
     {
       brand: "Audi",
       fuel: "Diesel",
-      href: "/products/audi-a6-quattro",
+      href: "/vehicles/audi-a6-quattro",
       id: "audi-a6-quattro",
       location: "Vilnius",
       mileage: "58,000 km",
@@ -93,6 +93,6 @@ export const mockProductDetail: ProductDetailViewModel = {
   year: "2022",
 };
 
-export const mockProductDetails: Record<string, ProductDetailViewModel> = {
-  [mockProductDetail.id]: mockProductDetail,
+export const mockVehicleDetails: Record<string, VehicleDetailViewModel> = {
+  [mockVehicleDetail.id]: mockVehicleDetail,
 };

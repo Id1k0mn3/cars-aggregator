@@ -13,7 +13,7 @@ import { SiteHeader } from "@/src/widgets/site-header";
 
 import { mapVehicleToHorizontalCard } from "../model/vehicle-card-mappers";
 
-type ProductsPageProps = {
+type VehiclesPageProps = {
   searchParams: Record<string, string | string[] | undefined>;
 };
 
@@ -31,7 +31,7 @@ const getApiErrorMessage = (error: unknown, fallback: string) => {
   return fallback;
 };
 
-export async function ProductsPage({ searchParams }: ProductsPageProps) {
+export async function VehiclesPage({ searchParams }: VehiclesPageProps) {
   const parsedFilters = parseVehicleFilterSearchParams(searchParams);
   const shouldFetchVehicles = parsedFilters.validationMessages.length === 0;
 
@@ -88,7 +88,7 @@ export async function ProductsPage({ searchParams }: ProductsPageProps) {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm text-slate-500">
-              Home / <Link href="/products">Buy cars</Link>
+              Home / <Link href="/vehicles">Buy cars</Link>
             </p>
             <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-950">
               Vehicles for sale
@@ -164,7 +164,7 @@ export async function ProductsPage({ searchParams }: ProductsPageProps) {
               {vehicles.map((vehicle) => (
                 <VehicleHorizontalCard
                   key={vehicle.id}
-                  product={mapVehicleToHorizontalCard(vehicle)}
+                  vehicle={mapVehicleToHorizontalCard(vehicle)}
                 />
               ))}
             </div>
@@ -199,7 +199,7 @@ function PaginationControls({
     const params = serializeVehicleFilterParams(currentFilters);
     params.set("page", page.toString());
 
-    return `/products?${params.toString()}`;
+    return `/vehicles?${params.toString()}`;
   };
 
   return (

@@ -1,19 +1,18 @@
-import type { HeroStat } from "../model/mock-home-data";
+import type { HomeHeroStat } from "../model/home-page-types";
 
 type HomeHeroProps = {
-  heroStats: HeroStat[];
+  heroStats: HomeHeroStat[];
+  summary: string;
 };
 
-export function HomeHero({ heroStats }: HomeHeroProps) {
+export function HomeHero({ heroStats, summary }: HomeHeroProps) {
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(140deg,#0d1c35_0%,#1a3568_60%,#1e4080_100%)] px-4 py-14 text-white sm:px-6 lg:px-20 lg:py-16">
       <div className="absolute -right-24 -top-24 size-[28rem] rounded-full bg-blue-500/15 blur-3xl" />
       <div className="absolute bottom-0 right-12 size-80 rounded-full bg-orange-600/10 blur-3xl" />
 
       <div className="relative mx-auto w-full max-w-7xl">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/45">
-          Lithuania & Europe · 47,312 listings
-        </p>
+        <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/45">{summary}</p>
         <h1 className="mt-4 max-w-xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
           Find your <span className="text-blue-300">ideal</span> car
         </h1>

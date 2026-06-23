@@ -8,10 +8,10 @@ export class ApiConfigError extends Error {
 const trimTrailingSlash = (value: string) => value.replace(/\/+$/, "");
 
 export const getApiBaseUrl = () => {
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const apiBaseUrl = process.env.API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL;
 
   if (!apiBaseUrl) {
-    throw new ApiConfigError("NEXT_PUBLIC_API_BASE_URL is not configured.");
+    throw new ApiConfigError("API_BASE_URL or NEXT_PUBLIC_API_BASE_URL is not configured.");
   }
 
   try {

@@ -1,73 +1,107 @@
 import Link from "next/link";
 
-import {
-  bodyTypes,
-  featuredCars,
-  footerColumns,
-  heroStats,
-  navigationItems,
-  popularBrands,
-  quickFilters,
-  trustItems,
-} from "../model/mock-home-data";
+import { SiteHeader } from "@/src/widgets/site-header";
+
+import type {
+  HomeFooterColumn,
+  HomeHeroStat,
+  HomePageViewModel,
+  HomeQuickFilter,
+  HomeTrustItem,
+} from "../model/home-page-types";
 import { FeaturedVehiclesSection } from "./featured-vehicles-section";
 import { HomeCategorySection, HomeFilterSection } from "./home-filter-section";
 import { HomeHero } from "./home-hero";
 import { HomeTrustSection } from "./home-trust-section";
 
-export const HomePage = () => {
+type HomePageProps = {
+  errorMessage: string | null;
+  homePage: HomePageViewModel;
+};
+
+const quickFilters: HomeQuickFilter[] = [
+  { href: "/vehicles", label: "All cars" },
+  { href: "/vehicles?price_to=10000", label: "Under 10,000 EUR" },
+  { label: "Up to 5 years" },
+  { href: "/vehicles?fuel_type_id=3", label: "Electric" },
+  { href: "/vehicles?fuel_type_id=2", label: "Hybrid" },
+  { href: "/vehicles?body_type_id=3", label: "Hatchback" },
+  { href: "/vehicles?body_type_id=2", label: "SUV / Crossover" },
+  { href: "/vehicles?fuel_type_id=1", label: "Diesel" },
+  { label: "Automatic" },
+  { label: "One owner" },
+];
+
+const trustItems: HomeTrustItem[] = [
+  {
+    icon: "Verified",
+    text: "Dealers are reviewed and buyer feedback is visible before contact.",
+    title: "Verified sellers",
+  },
+  {
+    icon: "History",
+    text: "Check VIN, mileage, service records, and accident history before buying.",
+    title: "Vehicle history",
+  },
+  {
+    icon: "Finance",
+    text: "Compare financing and leasing options from the listing page.",
+    title: "Credit and leasing",
+  },
+  {
+    icon: "Secure",
+    text: "Practical guidance for safer payments, inspections, and handover.",
+    title: "Safer deals",
+  },
+];
+
+const footerColumns: HomeFooterColumn[] = [
+  {
+    links: ["Search cars", "Compare cars", "Check VIN", "Loan calculator"],
+    title: "Buyers",
+  },
+  {
+    links: ["Place an ad", "VIP placement", "For dealers", "Estimate car"],
+    title: "Sellers",
+  },
+  {
+    links: ["About us", "Contacts", "Terms of use", "Privacy policy"],
+    title: "Company",
+  },
+];
+
+const createHeroStats = (homePage: HomePageViewModel): HomeHeroStat[] => [
+  { label: "Brands", value: new Intl.NumberFormat("en-US").format(homePage.brands.length) },
+  { label: "Body types", value: new Intl.NumberFormat("en-US").format(homePage.bodies.length) },
+  { label: "Ads", value: new Intl.NumberFormat("en-US").format(homePage.ads.length) },
+  { label: "Live feed", value: homePage.ads.length > 0 ? "Ready" : "Empty" },
+];
+
+export const HomePage = ({ errorMessage, homePage }: HomePageProps) => {
+  const heroStats = createHeroStats(homePage);
+  const summary = errorMessage
+    ? "Home feed unavailable. Safe empty sections are shown below."
+    : "Live brands, body types, and ads from the current home feed.";
+
   return (
     <main className="min-h-screen bg-[#f0f2f5] text-slate-950">
-      <HomeTopbar />
-      <HomeHero heroStats={heroStats} />
+      <SiteHeader />
+      <HomeHero heroStats={heroStats} summary={summary} />
+      {errorMessage ? (
+        <section className="mx-auto w-full max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            {errorMessage}
+          </div>
+        </section>
+      ) : null}
       <HomeFilterSection quickFilters={quickFilters} />
-      <FeaturedVehiclesSection featuredCars={featuredCars} />
-      <HomeCategorySection bodyTypes={bodyTypes} popularBrands={popularBrands} />
+      <FeaturedVehiclesSection featuredCars={homePage.ads} />
+      <HomeCategorySection bodyTypes={homePage.bodies} popularBrands={homePage.brands} />
       <HomeTrustSection trustItems={trustItems} />
       <HomeFooter />
     </main>
   );
 };
-
-function HomeTopbar() {
-  return (
-    <header className="bg-[#1a2b4a] px-4 py-4 text-white sm:px-6 lg:px-20">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <Link className="flex items-center gap-2 text-xl font-bold tracking-tight" href="/">
-          <span className="size-2.5 rounded-full bg-orange-600" />
-          AutoMarket
-        </Link>
-
-        <nav aria-label="Main navigation">
-          <ul className="flex flex-wrap gap-x-7 gap-y-2 text-sm font-medium text-white/70">
-            {navigationItems.map((item) => (
-              <li key={item.label}>
-                <Link className="transition-colors hover:text-white" href={item.href}>
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            className="min-h-9 rounded-md border border-white/30 px-4 text-sm font-medium text-white"
-            type="button"
-          >
-            Sign in
-          </button>
-          <Link
-            className="inline-flex min-h-9 items-center rounded-md bg-orange-600 px-4 text-sm font-bold text-white"
-            href="/ads/create"
-          >
-            Add listing
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function HomeFooter() {
   return (

@@ -1,12 +1,12 @@
 import type { VehicleHorizontalCardViewModel } from "@/src/entities/vehicle";
 
-export const mockProducts: VehicleHorizontalCardViewModel[] = [
+export const mockVehicles: VehicleHorizontalCardViewModel[] = [
   {
     badge: "New",
     brand: "BMW",
     features: ["Leather interior", "Panoramic roof", "Adaptive cruise", "360 parking"],
     fuel: "Diesel",
-    href: "/products/bmw-530d-xdrive",
+    href: "/vehicles/bmw-530d-xdrive",
     id: "bmw-530d-xdrive",
     location: "Vilnius",
     mileage: "48,000 km",
@@ -23,7 +23,7 @@ export const mockProducts: VehicleHorizontalCardViewModel[] = [
     brand: "Toyota",
     features: ["360 camera", "Heated seats", "LED lights", "Apple CarPlay"],
     fuel: "Hybrid",
-    href: "/products/toyota-camry-hybrid",
+    href: "/vehicles/toyota-camry-hybrid",
     id: "toyota-camry-hybrid",
     location: "Kaunas",
     mileage: "62,000 km",
@@ -41,7 +41,7 @@ export const mockProducts: VehicleHorizontalCardViewModel[] = [
     brand: "Volkswagen",
     features: ["Climate control", "Apple CarPlay", "Parking sensors"],
     fuel: "Petrol",
-    href: "/products/vw-golf-life-plus",
+    href: "/vehicles/vw-golf-life-plus",
     id: "vw-golf-life-plus",
     location: "Siauliai",
     mileage: "85,000 km",

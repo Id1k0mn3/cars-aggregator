@@ -24,6 +24,7 @@ The current backend API contract supports:
 - public vehicle listing
 - vehicle filters
 - vehicle dictionaries for brand, fuel, and body types
+- home page feed for brands, bodies, and featured vehicles
 - crawler-based vehicle import
 
 The crawler import endpoint is not a normal frontend user feature. Do not expose it in the public frontend unless the backend contract explicitly makes it safe for frontend usage.
@@ -73,6 +74,7 @@ Do not build these as full frontend features until the API/product contract is c
 - Map API DTOs into frontend models before passing data into presentational components.
 - Keep API-specific error shapes at the API/model boundary.
 - Do not document backend internals in frontend docs unless needed to describe the frontend API contract boundary.
+- The home page uses the server-side `/v1/vehicles/home/` contract and maps it before rendering UI components.
 
 ## Open questions
 

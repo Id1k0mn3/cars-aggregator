@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const navigationItems = [
-  { label: "Buy cars", href: "/products" },
+  { label: "Buy cars", href: "/vehicles" },
   { label: "Sell car", href: "/ads/create" },
 ];
 
@@ -34,7 +34,7 @@ export function SiteHeader() {
           </button>
           <Link
             className="text-sm font-medium text-zinc-700 transition-colors hover:text-zinc-950"
-            href="/products"
+            href="/vehicles"
           >
             Buy cars
           </Link>
