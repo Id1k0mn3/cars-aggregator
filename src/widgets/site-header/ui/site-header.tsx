@@ -7,17 +7,18 @@ const navigationItems = [
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-zinc-200 bg-white">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-        <Link className="text-xl font-semibold tracking-tight text-zinc-950" href="/">
-          Cars Aggregator
+    <header className="bg-[#1a2b4a] px-4 py-4 text-white sm:px-6 lg:px-20">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <Link className="flex items-center gap-2 text-xl font-bold tracking-tight" href="/">
+          <span className="size-2.5 rounded-full bg-orange-600" />
+          AutoMarket
         </Link>
 
         <nav aria-label="Main navigation">
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-zinc-700">
+          <ul className="flex flex-wrap gap-x-7 gap-y-2 text-sm font-medium text-white/70">
             {navigationItems.map((item) => (
               <li key={item.label}>
-                <Link className="transition-colors hover:text-zinc-950" href={item.href}>
+                <Link className="transition-colors hover:text-white" href={item.href}>
                   {item.label}
                 </Link>
               </li>
@@ -25,24 +26,18 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2">
           <button
-            className="text-sm font-medium text-zinc-700 transition-colors hover:text-zinc-950"
+            className="min-h-9 rounded-md border border-white/30 px-4 text-sm font-medium text-white"
             type="button"
           >
             Sign in
           </button>
           <Link
-            className="text-sm font-medium text-zinc-700 transition-colors hover:text-zinc-950"
-            href="/vehicles"
-          >
-            Buy cars
-          </Link>
-          <Link
-            className="inline-flex min-h-10 items-center justify-center rounded-md bg-emerald-700 px-4 text-sm font-semibold text-white transition-colors hover:bg-emerald-800"
+            className="inline-flex min-h-9 items-center rounded-md bg-orange-600 px-4 text-sm font-bold text-white"
             href="/ads/create"
           >
-            Add ad
+            Add listing
           </Link>
         </div>
       </div>

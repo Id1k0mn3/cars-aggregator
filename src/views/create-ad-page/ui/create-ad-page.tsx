@@ -3,7 +3,10 @@ import { SiteHeader } from "@/src/widgets/site-header";
 const steps = ["Vehicle data", "Photos", "Price and contacts"];
 
 const vehicleFields = [
-  { label: "Make *", options: ["Select make", "BMW", "Toyota", "Volkswagen", "Mercedes-Benz"] },
+  {
+    label: "Car brand *",
+    options: ["Select car brand", "BMW", "Toyota", "Volkswagen", "Mercedes-Benz"],
+  },
   { label: "Model *", options: ["Select model"] },
   { label: "Year *", options: ["2024", "2023", "2022", "2021", "2020"] },
   { label: "Body type *", options: ["Sedan", "Hatchback", "SUV", "Wagon", "Minivan"] },

@@ -2,13 +2,7 @@ import Link from "next/link";
 
 import { SiteHeader } from "@/src/widgets/site-header";
 
-import type {
-  HomeFooterColumn,
-  HomeHeroStat,
-  HomePageViewModel,
-  HomeQuickFilter,
-  HomeTrustItem,
-} from "../model/home-page-types";
+import type { HomeFooterColumn, HomePageData } from "../model/home-page-types";
 import { FeaturedVehiclesSection } from "./featured-vehicles-section";
 import { HomeCategorySection, HomeFilterSection } from "./home-filter-section";
 import { HomeHero } from "./home-hero";
@@ -16,77 +10,14 @@ import { HomeTrustSection } from "./home-trust-section";
 
 type HomePageProps = {
   errorMessage: string | null;
-  homePage: HomePageViewModel;
+  homePage: HomePageData;
 };
 
-const quickFilters: HomeQuickFilter[] = [
-  { href: "/vehicles", label: "All cars" },
-  { href: "/vehicles?price_to=10000", label: "Under 10,000 EUR" },
-  { label: "Up to 5 years" },
-  { href: "/vehicles?fuel_type_id=3", label: "Electric" },
-  { href: "/vehicles?fuel_type_id=2", label: "Hybrid" },
-  { href: "/vehicles?body_type_id=3", label: "Hatchback" },
-  { href: "/vehicles?body_type_id=2", label: "SUV / Crossover" },
-  { href: "/vehicles?fuel_type_id=1", label: "Diesel" },
-  { label: "Automatic" },
-  { label: "One owner" },
-];
-
-const trustItems: HomeTrustItem[] = [
-  {
-    icon: "Verified",
-    text: "Dealers are reviewed and buyer feedback is visible before contact.",
-    title: "Verified sellers",
-  },
-  {
-    icon: "History",
-    text: "Check VIN, mileage, service records, and accident history before buying.",
-    title: "Vehicle history",
-  },
-  {
-    icon: "Finance",
-    text: "Compare financing and leasing options from the listing page.",
-    title: "Credit and leasing",
-  },
-  {
-    icon: "Secure",
-    text: "Practical guidance for safer payments, inspections, and handover.",
-    title: "Safer deals",
-  },
-];
-
-const footerColumns: HomeFooterColumn[] = [
-  {
-    links: ["Search cars", "Compare cars", "Check VIN", "Loan calculator"],
-    title: "Buyers",
-  },
-  {
-    links: ["Place an ad", "VIP placement", "For dealers", "Estimate car"],
-    title: "Sellers",
-  },
-  {
-    links: ["About us", "Contacts", "Terms of use", "Privacy policy"],
-    title: "Company",
-  },
-];
-
-const createHeroStats = (homePage: HomePageViewModel): HomeHeroStat[] => [
-  { label: "Brands", value: new Intl.NumberFormat("en-US").format(homePage.brands.length) },
-  { label: "Body types", value: new Intl.NumberFormat("en-US").format(homePage.bodies.length) },
-  { label: "Ads", value: new Intl.NumberFormat("en-US").format(homePage.ads.length) },
-  { label: "Live feed", value: homePage.ads.length > 0 ? "Ready" : "Empty" },
-];
-
 export const HomePage = ({ errorMessage, homePage }: HomePageProps) => {
-  const heroStats = createHeroStats(homePage);
-  const summary = errorMessage
-    ? "Home feed unavailable. Safe empty sections are shown below."
-    : "Live brands, body types, and ads from the current home feed.";
-
   return (
     <main className="min-h-screen bg-[#f0f2f5] text-slate-950">
       <SiteHeader />
-      <HomeHero heroStats={heroStats} summary={summary} />
+      <HomeHero hero={homePage.hero} />
       {errorMessage ? (
         <section className="mx-auto w-full max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
           <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
@@ -94,16 +25,20 @@ export const HomePage = ({ errorMessage, homePage }: HomePageProps) => {
           </div>
         </section>
       ) : null}
-      <HomeFilterSection quickFilters={quickFilters} />
-      <FeaturedVehiclesSection featuredCars={homePage.ads} />
-      <HomeCategorySection bodyTypes={homePage.bodies} popularBrands={homePage.brands} />
-      <HomeTrustSection trustItems={trustItems} />
-      <HomeFooter />
+      <HomeFilterSection quickFilters={homePage.quickFilters} />
+      <FeaturedVehiclesSection featuredCars={homePage.featuredVehicles} />
+      <HomeCategorySection bodyTypes={homePage.bodyTypes} popularBrands={homePage.carBrands} />
+      <HomeTrustSection trustItems={homePage.trustItems} />
+      <HomeFooter footerColumns={homePage.footerColumns} />
     </main>
   );
 };
 
-function HomeFooter() {
+type HomeFooterProps = {
+  footerColumns: HomeFooterColumn[];
+};
+
+function HomeFooter({ footerColumns }: HomeFooterProps) {
   return (
     <>
       <footer className="bg-[#1a2b4a] px-4 py-10 text-white sm:px-6 lg:px-20">

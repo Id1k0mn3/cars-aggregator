@@ -1,42 +1,20 @@
-export type HomeNavigationItem = {
-  href: string;
-  label: string;
-};
-
-export type HomeHeroStat = {
+export type HomeStat = {
   label: string;
   value: string;
 };
 
-export type HomeQuickFilter = {
+export type HomeLinkItem = {
   href?: string;
   label: string;
 };
 
-export type HomeFooterColumn = {
-  links: string[];
-  title: string;
-};
-
-export type HomeTrustItem = {
-  icon: string;
-  text: string;
-  title: string;
-};
-
-export type HomeBodyTile = {
+export type HomeCategoryItem = {
   countLabel: number;
   href: string;
   label: string;
 };
 
-export type HomeBrandTile = {
-  countLabel: number;
-  href: string;
-  label: string;
-};
-
-export type HomeAdCard = {
+export type HomeVehicleCard = {
   brand: string;
   href: string;
   imageUrl?: string;
@@ -46,8 +24,39 @@ export type HomeAdCard = {
   title: string;
 };
 
-export type HomePageViewModel = {
-  ads: HomeAdCard[];
-  bodies: HomeBodyTile[];
-  brands: HomeBrandTile[];
+export type HomeSearchOption = {
+  label: string;
+  value: string;
+};
+
+export type HomeSearchOptions = {
+  carBrands: HomeSearchOption[];
+  models: HomeSearchOption[];
+};
+
+export type HomeHeroData = {
+  searchOptions: HomeSearchOptions;
+  stats: HomeStat[];
+  summary: string;
+};
+
+export type HomeTrustItem = {
+  icon: string;
+  text: string;
+  title: string;
+};
+
+export type HomeFooterColumn = {
+  links: string[];
+  title: string;
+};
+
+export type HomePageData = {
+  bodyTypes: HomeCategoryItem[];
+  carBrands: HomeCategoryItem[];
+  featuredVehicles: HomeVehicleCard[];
+  footerColumns: HomeFooterColumn[];
+  hero: HomeHeroData;
+  quickFilters: HomeLinkItem[];
+  trustItems: HomeTrustItem[];
 };

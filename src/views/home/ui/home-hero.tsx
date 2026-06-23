@@ -1,18 +1,19 @@
-import type { HomeHeroStat } from "../model/home-page-types";
+import type { HomeHeroData } from "../model/home-page-types";
 
 type HomeHeroProps = {
-  heroStats: HomeHeroStat[];
-  summary: string;
+  hero: HomeHeroData;
 };
 
-export function HomeHero({ heroStats, summary }: HomeHeroProps) {
+export function HomeHero({ hero }: HomeHeroProps) {
   return (
     <section className="relative overflow-hidden bg-[linear-gradient(140deg,#0d1c35_0%,#1a3568_60%,#1e4080_100%)] px-4 py-14 text-white sm:px-6 lg:px-20 lg:py-16">
       <div className="absolute -right-24 -top-24 size-[28rem] rounded-full bg-blue-500/15 blur-3xl" />
       <div className="absolute bottom-0 right-12 size-80 rounded-full bg-orange-600/10 blur-3xl" />
 
       <div className="relative mx-auto w-full max-w-7xl">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/45">{summary}</p>
+        <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/45">
+          {hero.summary}
+        </p>
         <h1 className="mt-4 max-w-xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
           Find your <span className="text-blue-300">ideal</span> car
         </h1>
@@ -21,30 +22,42 @@ export function HomeHero({ heroStats, summary }: HomeHeroProps) {
           choose with less noise.
         </p>
 
-        <form className="mt-9 flex max-w-3xl flex-col overflow-hidden rounded-xl bg-white shadow-2xl shadow-black/30 md:flex-row">
-          <label className="sr-only" htmlFor="home-make">
-            Make
+        <form
+          action="/vehicles"
+          className="mt-9 flex max-w-3xl flex-col overflow-hidden rounded-xl bg-white shadow-2xl shadow-black/30 md:flex-row"
+          method="get"
+        >
+          <label className="sr-only" htmlFor="home-car-brand">
+            Car brand
           </label>
           <select
             className="border-b border-slate-200 bg-white px-4 py-4 text-sm text-slate-700 outline-none md:min-w-32 md:border-b-0 md:border-r"
-            defaultValue="all"
-            id="home-make"
+            defaultValue=""
+            id="home-car-brand"
+            name="brand_type_id"
           >
-            <option value="all">All makes</option>
-            <option value="bmw">BMW</option>
-            <option value="toyota">Toyota</option>
-            <option value="mercedes">Mercedes</option>
+            <option value="">All car brands</option>
+            {hero.searchOptions.carBrands.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
-
           <label className="sr-only" htmlFor="home-model">
             Model
           </label>
           <select
             className="border-b border-slate-200 bg-white px-4 py-4 text-sm text-slate-700 outline-none md:min-w-32 md:border-b-0 md:border-r"
-            defaultValue="all"
+            defaultValue=""
             id="home-model"
+            name="model"
           >
-            <option value="all">All models</option>
+            <option value="">All models</option>
+            {hero.searchOptions.models.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
 
           <label className="sr-only" htmlFor="home-search">
@@ -57,13 +70,16 @@ export function HomeHero({ heroStats, summary }: HomeHeroProps) {
             type="search"
           />
 
-          <button className="min-h-14 bg-orange-600 px-7 text-sm font-bold text-white" type="button">
+          <button
+            className="min-h-14 bg-orange-600 px-7 text-sm font-bold text-white"
+            type="submit"
+          >
             Search cars
           </button>
         </form>
 
         <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:flex lg:gap-10">
-          {heroStats.map((stat) => (
+          {hero.stats.map((stat) => (
             <div key={stat.label}>
               <p className="text-3xl font-bold text-white">{stat.value}</p>
               <p className="mt-1 text-xs text-white/45">{stat.label}</p>

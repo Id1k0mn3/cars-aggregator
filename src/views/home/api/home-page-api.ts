@@ -7,6 +7,12 @@ export type HomeDictionaryItemDto = {
   total: number | null;
 };
 
+export type HomeVehicleModelDto = {
+  id?: number;
+  slug?: string;
+  title: string;
+};
+
 export type HomeVehicleTypeDto = {
   id: number;
   slug: string;
@@ -53,6 +59,7 @@ export type HomeVehicleDto = {
 export type HomePageDto = {
   brands: HomeDictionaryItemDto[];
   bodies: HomeDictionaryItemDto[];
+  models?: HomeVehicleModelDto[];
   vehicles: HomeVehicleDto[];
 };
 
