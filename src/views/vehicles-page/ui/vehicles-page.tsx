@@ -107,7 +107,7 @@ export async function VehiclesPage({ searchParams }: VehiclesPageProps) {
         />
 
         <div>
-          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mb-4">
             <div>
               <p className="text-sm text-slate-500">
                 Found <strong className="text-slate-950">{totalLabel}</strong> vehicles
@@ -115,14 +115,6 @@ export async function VehiclesPage({ searchParams }: VehiclesPageProps) {
               {dictionaryFailed ? (
                 <p className="mt-1 text-sm text-orange-700">Failed to load filter options.</p>
               ) : null}
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-500">
-                Sorting unavailable
-              </span>
-              <span className="rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700">
-                List
-              </span>
             </div>
           </div>
 

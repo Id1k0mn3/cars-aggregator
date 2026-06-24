@@ -28,7 +28,9 @@ export function SiteHeader() {
 
         <div className="flex flex-wrap items-center gap-2">
           <button
-            className="min-h-9 rounded-md border border-white/30 px-4 text-sm font-medium text-white"
+            className="min-h-9 cursor-not-allowed rounded-md border border-white/15 px-4 text-sm font-medium text-white/45"
+            disabled
+            title="Authentication is not available yet"
             type="button"
           >
             Sign in

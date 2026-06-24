@@ -30,8 +30,8 @@ export type HomeSearchOption = {
 };
 
 export type HomeSearchOptions = {
+  bodyTypes: HomeSearchOption[];
   carBrands: HomeSearchOption[];
-  models: HomeSearchOption[];
 };
 
 export type HomeHeroData = {

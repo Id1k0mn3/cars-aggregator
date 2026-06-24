@@ -117,6 +117,7 @@ export function VehicleFilterPanel({
               min="0"
               onChange={(event) => updateDraft("price_from", event.target.value)}
               placeholder="from"
+              step="1"
               type="number"
               value={draft.price_from}
             />
@@ -125,6 +126,7 @@ export function VehicleFilterPanel({
               min="0"
               onChange={(event) => updateDraft("price_to", event.target.value)}
               placeholder="to"
+              step="1"
               type="number"
               value={draft.price_to}
             />

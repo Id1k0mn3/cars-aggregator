@@ -130,10 +130,12 @@ export function CreateAdPage() {
               <button
                 className={
                   index === 0
-                    ? "aspect-[4/3] rounded-lg border border-blue-200 bg-blue-50 text-xs font-medium text-slate-500"
-                    : "aspect-[4/3] rounded-lg border border-dashed border-slate-300 text-xs font-medium text-slate-500"
+                    ? "aspect-[4/3] cursor-not-allowed rounded-lg border border-blue-100 bg-blue-50/60 text-xs font-medium text-slate-400"
+                    : "aspect-[4/3] cursor-not-allowed rounded-lg border border-dashed border-slate-200 text-xs font-medium text-slate-400"
                 }
+                disabled
                 key={`${slot}-${index}`}
+                title="Photo uploads are not available yet"
                 type="button"
               >
                 {slot}

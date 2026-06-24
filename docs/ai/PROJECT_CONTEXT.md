@@ -22,6 +22,7 @@ The current backend API contract supports:
 - current user lookup
 - email verification
 - public vehicle listing
+- public vehicle detail lookup
 - vehicle filters
 - vehicle dictionaries for brand, fuel, and body types
 - home page feed for brands, bodies, and featured vehicles
@@ -35,6 +36,7 @@ The crawler import endpoint is not a normal frontend user feature. Do not expose
 
 - vehicle list page
 - vehicle cards
+- vehicle detail page
 - dictionary-based filters
 - price and registration date filters
 - pagination using the API contract
@@ -64,7 +66,6 @@ Do not build these as full frontend features until the API/product contract is c
 - paid plans
 - user-owned advertisements
 - public user profiles
-- vehicle details endpoint
 - related advertisements
 - crawler/admin import UI
 
@@ -80,7 +81,6 @@ Do not build these as full frontend features until the API/product contract is c
 
 - What is the final production API base URL?
 - Should unverified users access authenticated frontend features?
-- Should vehicle details have a dedicated endpoint?
 - Should normal users be able to create advertisements?
 - What is the safe token storage strategy for this frontend?
 - Should public user data be shown in the frontend?

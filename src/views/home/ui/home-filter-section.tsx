@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import type { HomeCategoryItem, HomeLinkItem } from "../model/home-page-types";
+import { BodyTypeIcon, getBrandInitials, QuickFilterIcon } from "./home-filter-icons";
 
 type HomeFilterSectionProps = {
   quickFilters: HomeLinkItem[];
@@ -17,12 +18,13 @@ export function HomeFilterSection({ quickFilters }: HomeFilterSectionProps) {
       {quickFilters.map((filter, index) => {
         const className =
           index === 0
-            ? "rounded-full border border-blue-300 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700"
-            : "rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-500";
+            ? "inline-flex items-center gap-2 rounded-full border border-blue-300 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 shadow-sm"
+            : "inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-500 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700";
 
         if (filter.href) {
           return (
             <Link className={className} href={filter.href} key={filter.label}>
+              <QuickFilterIcon label={filter.label} />
               {filter.label}
             </Link>
           );
@@ -30,6 +32,7 @@ export function HomeFilterSection({ quickFilters }: HomeFilterSectionProps) {
 
         return (
           <span className={className} key={filter.label}>
+            <QuickFilterIcon label={filter.label} />
             {filter.label}
           </span>
         );
@@ -46,12 +49,12 @@ export function HomeCategorySection({ bodyTypes, popularBrands }: HomeCategorySe
         {bodyTypes.length > 0 ? (
           bodyTypes.map((bodyType) => (
             <Link
-              className="rounded-[10px] border border-slate-200 bg-white p-5 text-center"
+              className="group rounded-[10px] border border-slate-200 bg-white p-5 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md"
               href={bodyType.href}
               key={bodyType.label}
             >
-              <span className="mx-auto flex h-10 items-center justify-center text-sm font-bold text-blue-600">
-                Body
+              <span className="mx-auto flex size-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                <BodyTypeIcon label={bodyType.label} />
               </span>
               <span className="mt-2 block text-sm font-semibold text-slate-950">
                 {bodyType.label}
@@ -71,12 +74,12 @@ export function HomeCategorySection({ bodyTypes, popularBrands }: HomeCategorySe
         {popularBrands.length > 0 ? (
           popularBrands.map((brand) => (
             <Link
-              className="rounded-[10px] border border-slate-200 bg-white p-4 text-center"
+              className="group rounded-[10px] border border-slate-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md"
               href={brand.href}
               key={brand.label}
             >
-              <span className="mx-auto flex h-9 w-14 items-center justify-center rounded-md bg-slate-100 text-xs font-semibold text-slate-500">
-                Brand
+              <span className="mx-auto flex h-10 w-14 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-xs font-bold text-slate-600 transition-colors group-hover:border-blue-200 group-hover:bg-blue-50 group-hover:text-blue-700">
+                {getBrandInitials(brand.label)}
               </span>
               <span className="mt-2 block text-sm font-semibold text-slate-950">{brand.label}</span>
               <span className="mt-1 block text-xs text-slate-500">{brand.countLabel}</span>

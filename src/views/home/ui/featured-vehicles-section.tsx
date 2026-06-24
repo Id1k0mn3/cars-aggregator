@@ -1,5 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
+
+import { VehicleImageFrame } from "@/src/entities/vehicle";
 
 import type { HomeVehicleCard } from "../model/home-page-types";
 
@@ -23,7 +24,9 @@ type FeaturedVehicleListProps = {
 };
 
 function FeaturedVehicleList({ cars }: FeaturedVehicleListProps) {
-  return cars.map((car) => <FeaturedVehicleCard car={car} key={`${car.brand}-${car.title}-${car.href}`} />);
+  return cars.map((car) => (
+    <FeaturedVehicleCard car={car} key={`${car.brand}-${car.title}-${car.href}`} />
+  ));
 }
 
 type FeaturedVehicleCardProps = {
@@ -32,7 +35,7 @@ type FeaturedVehicleCardProps = {
 
 function FeaturedVehicleCard({ car }: FeaturedVehicleCardProps) {
   return (
-    <article className="overflow-hidden rounded-[14px] border border-slate-200 bg-white">
+    <article className="group overflow-hidden rounded-[14px] border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md">
       <Link className="block" href={car.href}>
         <VehicleImage car={car} />
       </Link>
@@ -53,19 +56,20 @@ type VehicleImageProps = {
 
 function VehicleImage({ car }: VehicleImageProps) {
   return (
-    <div className="relative flex h-44 items-center justify-center overflow-hidden bg-slate-100">
-      {car.imageUrl ? (
-        <Image
-          alt={car.title}
-          className="object-cover"
-          fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-          src={car.imageUrl}
-          unoptimized
-        />
-      ) : (
-        <span className="text-sm font-semibold text-slate-500">No image</span>
-      )}
+    <div className="relative">
+      <VehicleImageFrame
+        className="h-44"
+        eyebrow={car.brand}
+        imageUrl={car.imageUrl}
+        sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+        title={car.title}
+      />
+      <span className="absolute left-3 top-3 rounded-md bg-orange-600 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm">
+        Featured
+      </span>
+      <span className="absolute right-3 top-3 flex size-8 items-center justify-center rounded-full bg-white/90 text-slate-500 shadow-sm">
+        <HeartIcon />
+      </span>
     </div>
   );
 }
@@ -78,11 +82,62 @@ function VehicleTags({ tags }: VehicleTagsProps) {
   return (
     <div className="mt-3 flex flex-wrap gap-2">
       {tags.map((tag) => (
-        <span className="rounded-md bg-slate-100 px-2 py-1 text-xs text-slate-500" key={tag}>
+        <span
+          className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2 py-1 text-xs text-slate-500"
+          key={tag}
+        >
+          <TagIcon />
           {tag}
         </span>
       ))}
     </div>
+  );
+}
+
+function HeartIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="size-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M20.2 6.8a4.7 4.7 0 0 0-6.65 0L12 8.35 10.45 6.8a4.7 4.7 0 0 0-6.65 6.65L12 21l8.2-7.55a4.7 4.7 0 0 0 0-6.65Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+    </svg>
+  );
+}
+
+function TagIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="size-3.5"
+      fill="none"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 12.25V5.5A1.5 1.5 0 0 1 5.5 4h6.75a2 2 0 0 1 1.4.58l5.77 5.77a2 2 0 0 1 0 2.83l-6.24 6.24a2 2 0 0 1-2.83 0l-5.77-5.77A2 2 0 0 1 4 12.25Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M8.25 8.25h.01"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2.4"
+      />
+    </svg>
   );
 }
 
