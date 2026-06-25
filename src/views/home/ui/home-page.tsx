@@ -62,7 +62,10 @@ function HomeFooter({ footerColumns }: HomeFooterProps) {
               <ul className="mt-4 grid gap-2">
                 {column.links.map((footerLink) => (
                   <li key={footerLink}>
-                    <Link className="text-sm text-white/60 hover:text-white" href="#">
+                    <Link
+                      className="text-sm text-white/60 transition-colors hover:text-white"
+                      href="#"
+                    >
                       {footerLink}
                     </Link>
                   </li>

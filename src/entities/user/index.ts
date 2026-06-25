@@ -1,1 +1,2 @@
-export type { AuthTokenDto, User, UserDto } from "./model/types";
+export { mapUserDtoToUser } from "./model/mappers";
+export type { User, UserDto } from "./model/types";

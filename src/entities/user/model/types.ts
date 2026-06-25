@@ -10,12 +10,6 @@ export type UserDto = {
   updatedAt: number | null;
 };
 
-export type AuthTokenDto = {
-  token: string;
-  tokenType: "Bearer";
-  user: UserDto;
-};
-
 export type User = {
   createdAt: Date | null;
   email: string;

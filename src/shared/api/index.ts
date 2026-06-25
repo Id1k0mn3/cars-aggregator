@@ -1,5 +1,10 @@
 export { apiRequest, apiRequestWithMeta } from "./client";
-export { ApiClientError, isApiClientError } from "./errors";
+export {
+  ApiClientError,
+  isApiClientError,
+  isApiUnauthenticatedError,
+  isApiValidationError,
+} from "./errors";
 export type {
   ApiErrorDto,
   ApiErrorPayload,

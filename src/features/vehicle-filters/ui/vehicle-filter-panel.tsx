@@ -78,7 +78,7 @@ export function VehicleFilterPanel({
             Brand
           </span>
           <select
-            className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm"
+            className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm transition-colors hover:border-slate-300 hover:bg-white"
             onChange={(event) => updateDraft("brand_type_id", event.target.value)}
             value={draft.brand_type_id}
           >
@@ -94,7 +94,7 @@ export function VehicleFilterPanel({
         <label className="grid gap-2">
           <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">Body</span>
           <select
-            className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm"
+            className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm transition-colors hover:border-slate-300 hover:bg-white"
             onChange={(event) => updateDraft("body_type_id", event.target.value)}
             value={draft.body_type_id}
           >
@@ -113,7 +113,7 @@ export function VehicleFilterPanel({
           </legend>
           <span className="grid grid-cols-2 gap-2">
             <input
-              className="min-w-0 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm"
+              className="min-w-0 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm transition-colors hover:border-slate-300 hover:bg-white"
               min="0"
               onChange={(event) => updateDraft("price_from", event.target.value)}
               placeholder="from"
@@ -122,7 +122,7 @@ export function VehicleFilterPanel({
               value={draft.price_from}
             />
             <input
-              className="min-w-0 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm"
+              className="min-w-0 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm transition-colors hover:border-slate-300 hover:bg-white"
               min="0"
               onChange={(event) => updateDraft("price_to", event.target.value)}
               placeholder="to"
@@ -139,13 +139,13 @@ export function VehicleFilterPanel({
           </legend>
           <span className="grid grid-cols-2 gap-2">
             <input
-              className="min-w-0 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm"
+              className="min-w-0 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm transition-colors hover:border-slate-300 hover:bg-white"
               onChange={(event) => updateDraft("first_registration_from", event.target.value)}
               type="date"
               value={draft.first_registration_from}
             />
             <input
-              className="min-w-0 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm"
+              className="min-w-0 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm transition-colors hover:border-slate-300 hover:bg-white"
               onChange={(event) => updateDraft("first_registration_to", event.target.value)}
               type="date"
               value={draft.first_registration_to}
@@ -158,7 +158,7 @@ export function VehicleFilterPanel({
             Fuel
           </legend>
           <select
-            className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm"
+            className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm transition-colors hover:border-slate-300 hover:bg-white"
             onChange={(event) => updateDraft("fuel_type_id", event.target.value)}
             value={draft.fuel_type_id}
           >
@@ -172,13 +172,17 @@ export function VehicleFilterPanel({
         </fieldset>
 
         <button
-          className="rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white"
+          className="rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
           onClick={applyFilters}
           type="button"
         >
           Apply filters
         </button>
-        <button className="text-sm font-medium text-blue-700" onClick={resetFilters} type="button">
+        <button
+          className="text-sm font-medium text-blue-700 transition-colors hover:text-blue-800"
+          onClick={resetFilters}
+          type="button"
+        >
           Reset all
         </button>
       </div>

@@ -82,17 +82,22 @@ export const apiRequestWithMeta = async <TResponse>(
   options: ApiRequestOptions = {},
 ): Promise<{ data: TResponse; headers: Headers }> => {
   const url = createApiUrl(path);
-  const headers = new Headers(options.headers);
+  const { authToken, headers: providedHeaders, json, ...requestOptions } = options;
+  const headers = new Headers(providedHeaders);
   headers.set("Accept", "application/json");
 
   const requestInit: RequestInit = {
-    ...options,
+    ...requestOptions,
     headers,
   };
 
-  if (options.json !== undefined) {
+  if (authToken) {
+    headers.set("Authorization", `Bearer ${authToken}`);
+  }
+
+  if (json !== undefined) {
     headers.set("Content-Type", "application/json");
-    requestInit.body = JSON.stringify(options.json);
+    requestInit.body = JSON.stringify(json);
   }
 
   let response: Response;

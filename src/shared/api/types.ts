@@ -18,6 +18,7 @@ export type ApiValidationErrorDto = ApiErrorDto & {
 export type ApiErrorPayload = ApiErrorDto | ApiValidationErrorDto;
 
 export type ApiRequestOptions = Omit<RequestInit, "body" | "headers"> & {
+  authToken?: string | null;
   headers?: HeadersInit;
   json?: JsonValue;
 };

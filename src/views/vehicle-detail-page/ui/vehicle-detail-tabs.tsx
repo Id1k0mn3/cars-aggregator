@@ -114,7 +114,7 @@ function HistoryTab({ description, sourceUrl }: HistoryTabProps) {
     <div className="mt-5 rounded-xl border border-slate-200 bg-white p-5 text-sm leading-7 text-slate-600">
       <p>{description}</p>
       <a
-        className="mt-4 inline-flex font-semibold text-blue-700"
+        className="mt-4 inline-flex font-semibold text-blue-700 transition-colors hover:text-blue-800"
         href={sourceUrl}
         rel="noreferrer"
         target="_blank"

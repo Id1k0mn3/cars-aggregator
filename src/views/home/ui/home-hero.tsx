@@ -62,7 +62,7 @@ export function HomeHero({ hero }: HomeHeroProps) {
             Car brand
           </label>
           <select
-            className="border-b border-slate-200 bg-white px-4 py-4 text-sm text-slate-700 outline-none md:min-w-32 md:border-b-0 md:border-r"
+            className="border-b border-slate-200 bg-white px-4 py-4 text-sm text-slate-700 outline-none transition-colors hover:bg-slate-50 md:min-w-32 md:border-b-0 md:border-r"
             id="home-car-brand"
             onChange={(event) => setBrandTypeId(event.target.value)}
             value={brandTypeId}
@@ -78,7 +78,7 @@ export function HomeHero({ hero }: HomeHeroProps) {
             Body type
           </label>
           <select
-            className="border-b border-slate-200 bg-white px-4 py-4 text-sm text-slate-700 outline-none md:min-w-32 md:border-b-0 md:border-r"
+            className="border-b border-slate-200 bg-white px-4 py-4 text-sm text-slate-700 outline-none transition-colors hover:bg-slate-50 md:min-w-32 md:border-b-0 md:border-r"
             id="home-body-type"
             onChange={(event) => setBodyTypeId(event.target.value)}
             value={bodyTypeId}

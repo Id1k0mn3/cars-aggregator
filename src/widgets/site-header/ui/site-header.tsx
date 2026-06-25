@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { HeaderAuthActions } from "@/src/features/auth";
+
 const navigationItems = [
   { label: "Buy cars", href: "/vehicles" },
   { label: "Sell car", href: "/ads/create" },
@@ -9,7 +11,10 @@ export function SiteHeader() {
   return (
     <header className="bg-[#1a2b4a] px-4 py-4 text-white sm:px-6 lg:px-20">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <Link className="flex items-center gap-2 text-xl font-bold tracking-tight" href="/">
+        <Link
+          className="flex items-center gap-2 text-xl font-bold tracking-tight transition-colors hover:text-white/90"
+          href="/"
+        >
           <span className="size-2.5 rounded-full bg-orange-600" />
           AutoMarket
         </Link>
@@ -27,16 +32,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex flex-wrap items-center gap-2">
-          <button
-            className="min-h-9 cursor-not-allowed rounded-md border border-white/15 px-4 text-sm font-medium text-white/45"
-            disabled
-            title="Authentication is not available yet"
-            type="button"
-          >
-            Sign in
-          </button>
+          <HeaderAuthActions />
           <Link
-            className="inline-flex min-h-9 items-center rounded-md bg-orange-600 px-4 text-sm font-bold text-white"
+            className="inline-flex min-h-9 items-center rounded-md bg-orange-600 px-4 text-sm font-bold text-white transition-colors hover:bg-orange-700"
             href="/ads/create"
           >
             Add listing

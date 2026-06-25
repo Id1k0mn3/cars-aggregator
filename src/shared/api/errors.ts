@@ -1,4 +1,4 @@
-import type { ApiErrorPayload } from "./types";
+import type { ApiErrorPayload, ApiValidationErrorDto } from "./types";
 
 type ApiClientErrorParams = {
   message: string;
@@ -20,4 +20,19 @@ export class ApiClientError extends Error {
 
 export const isApiClientError = (error: unknown): error is ApiClientError => {
   return error instanceof ApiClientError;
+};
+
+export const isApiUnauthenticatedError = (error: unknown): error is ApiClientError => {
+  return isApiClientError(error) && error.status === 401;
+};
+
+export const isApiValidationError = (
+  error: unknown,
+): error is ApiClientError & { payload: ApiValidationErrorDto; status: 422 } => {
+  return (
+    isApiClientError(error) &&
+    error.status === 422 &&
+    error.payload !== undefined &&
+    "errors" in error.payload
+  );
 };

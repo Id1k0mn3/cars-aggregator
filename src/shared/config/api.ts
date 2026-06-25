@@ -5,14 +5,12 @@ export class ApiConfigError extends Error {
   }
 }
 
+const DEFAULT_API_BASE_URL = "http://localhost:8012/v1";
+
 const trimTrailingSlash = (value: string) => value.replace(/\/+$/, "");
 
 export const getApiBaseUrl = () => {
-  const apiBaseUrl = process.env.API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL;
-
-  if (!apiBaseUrl) {
-    throw new ApiConfigError("API_BASE_URL or NEXT_PUBLIC_API_BASE_URL is not configured.");
-  }
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? DEFAULT_API_BASE_URL;
 
   try {
     return trimTrailingSlash(new URL(apiBaseUrl).toString());

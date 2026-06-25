@@ -18,7 +18,7 @@ export function HomeFilterSection({ quickFilters }: HomeFilterSectionProps) {
       {quickFilters.map((filter, index) => {
         const className =
           index === 0
-            ? "inline-flex items-center gap-2 rounded-full border border-blue-300 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 shadow-sm"
+            ? "inline-flex items-center gap-2 rounded-full border border-blue-300 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 shadow-sm transition-colors hover:border-blue-400 hover:bg-blue-100"
             : "inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-500 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700";
 
         if (filter.href) {
@@ -105,7 +105,7 @@ function SectionHeader({ href, title }: SectionHeaderProps) {
     <section className="mx-auto mt-9 flex w-full max-w-7xl items-baseline justify-between px-4 sm:px-6 lg:px-8">
       <h2 className="text-2xl font-bold tracking-tight text-slate-950">{title}</h2>
       {href ? (
-        <Link className="text-sm font-medium text-blue-600" href={href}>
+        <Link className="text-sm font-medium text-blue-600 transition-colors hover:text-blue-700" href={href}>
           View all
         </Link>
       ) : null}

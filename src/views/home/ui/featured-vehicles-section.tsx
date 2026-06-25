@@ -153,7 +153,7 @@ function SectionHeader() {
   return (
     <section className="mx-auto mt-9 flex w-full max-w-7xl items-baseline justify-between px-4 sm:px-6 lg:px-8">
       <h2 className="text-2xl font-bold tracking-tight text-slate-950">Fresh ads</h2>
-      <Link className="text-sm font-medium text-blue-600" href="/vehicles">
+      <Link className="text-sm font-medium text-blue-600 transition-colors hover:text-blue-700" href="/vehicles">
         View all
       </Link>
     </section>
