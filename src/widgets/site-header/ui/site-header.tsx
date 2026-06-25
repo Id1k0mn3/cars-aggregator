@@ -33,12 +33,6 @@ export function SiteHeader() {
 
         <div className="flex flex-wrap items-center gap-2">
           <HeaderAuthActions />
-          <Link
-            className="inline-flex min-h-9 items-center rounded-md bg-orange-600 px-4 text-sm font-bold text-white transition-colors hover:bg-orange-700"
-            href="/ads/create"
-          >
-            Add listing
-          </Link>
         </div>
       </div>
     </header>
