@@ -2,6 +2,8 @@ import type { VehicleType, VehicleTypeDto } from "@/src/entities/dictionary";
 
 export type VehicleDto = {
   adId: string;
+  city?: string | null;
+  country?: string | null;
   createdAt: number | null;
   general: {
     bodyType: VehicleTypeDto | null;
@@ -73,6 +75,8 @@ export type CreateAdvertisementRequestDto = {
 
 export type Vehicle = {
   adId: string;
+  city: string | null;
+  country: string | null;
   createdAt: Date | null;
   general: {
     bodyType: VehicleType | null;

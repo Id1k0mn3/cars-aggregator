@@ -18,8 +18,8 @@ export function VehicleImageFrame({
   sizes,
   title,
 }: VehicleImageFrameProps) {
-  const [imageFailed, setImageFailed] = useState(false);
-  const resolvedImageUrl = imageUrl && !imageFailed ? imageUrl : null;
+  const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
+  const resolvedImageUrl = imageUrl && imageUrl !== failedImageUrl ? imageUrl : null;
 
   return (
     <div
@@ -33,12 +33,13 @@ export function VehicleImageFrame({
       {resolvedImageUrl ? (
         <Image
           alt={title}
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          fill
-          onError={() => setImageFailed(true)}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          height={600}
+          onError={() => setFailedImageUrl(resolvedImageUrl)}
           sizes={sizes}
-          src={imageUrl || ""}
+          src={resolvedImageUrl}
           unoptimized
+          width={900}
         />
       ) : (
         <VehicleImageFallback eyebrow={eyebrow} title={title} />

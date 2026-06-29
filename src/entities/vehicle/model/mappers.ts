@@ -7,6 +7,8 @@ const mapTimestampToDate = (timestamp: number | null) => {
 export const mapVehicleDtoToVehicle = (dto: VehicleDto): Vehicle => {
   return {
     adId: dto.adId,
+    city: dto.city ?? null,
+    country: dto.country ?? null,
     createdAt: mapTimestampToDate(dto.createdAt),
     general: {
       bodyType: dto.general.bodyType,

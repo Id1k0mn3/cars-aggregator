@@ -14,7 +14,6 @@ type HomePageProps = {
 };
 
 export const HomePage = ({ errorMessage, homePage }: HomePageProps) => {
-  console.log(errorMessage);
   return (
     <main className="min-h-screen bg-[#f0f2f5] text-slate-950">
       <SiteHeader />

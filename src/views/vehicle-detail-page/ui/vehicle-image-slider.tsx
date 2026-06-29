@@ -67,7 +67,6 @@ export function VehicleImageSlider({ brand, imageUrls, title }: VehicleImageSlid
           </>
         ) : null}
       </div>
-
       <div className="grid grid-cols-5 gap-0.5 bg-slate-200 md:grid-cols-6">
         {visibleThumbnails.map((imageUrl, index) => {
           const hiddenImageCount = imageCount - visibleThumbnails.length;

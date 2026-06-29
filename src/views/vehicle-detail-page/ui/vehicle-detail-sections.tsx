@@ -120,6 +120,8 @@ export function VehiclePricePanel({ vehicle }: VehicleDetailComponentProps) {
         <div className="mt-4 grid gap-2 text-sm text-slate-500">
           <p>Internal listing ID #{vehicle.id}</p>
           <p>Source ad #{vehicle.adId}</p>
+          <p>City: {vehicle.city}</p>
+          <p>Country: {vehicle.country}</p>
           <p>
             {vehicle.location} · Added {vehicle.postedAt}
           </p>

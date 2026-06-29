@@ -15,8 +15,10 @@ export type VehicleDetailViewModel = {
   adId: string;
   bodyType: string;
   brand: string;
+  city: string;
   co2Emission: string;
   color: string;
+  country: string;
   description: string;
   doors: string;
   drive: string;
@@ -44,6 +46,12 @@ const formatTechnicalInspection = (value: string | null) => {
   return value ?? "Inspection N/A";
 };
 
+const formatLocation = (city: string | null, country: string | null) => {
+  return [city, country]
+    .filter((value): value is string => value !== null && value !== "")
+    .join(", ");
+};
+
 const mapImageUrls = (imageUrls: string[]) => {
   return imageUrls
     .map(resolveImageUrl)
@@ -54,14 +62,17 @@ export const mapVehicleToDetailViewModel = (vehicle: Vehicle): VehicleDetailView
   const brand = vehicle.general.brandType?.title ?? "Vehicle";
   const bodyType = vehicle.general.bodyType?.title ?? "Body N/A";
   const firstRegistration = vehicle.general.firstRegistration;
+  const location = formatLocation(vehicle.city, vehicle.country);
 
   return {
     adId: vehicle.adId,
     bodyType,
     brand,
+    city: vehicle.city ?? "City N/A",
     co2Emission:
       vehicle.technical.co2Emission === null ? "CO2 N/A" : `${vehicle.technical.co2Emission} g/km`,
     color: vehicle.technical.color ?? "Color N/A",
+    country: vehicle.country ?? "Country N/A",
     description:
       "This listing is loaded from the vehicle API. Detailed seller notes are not available in the current frontend contract.",
     doors: vehicle.technical.doors ?? "Doors N/A",
@@ -70,7 +81,7 @@ export const mapVehicleToDetailViewModel = (vehicle: Vehicle): VehicleDetailView
     fuel: vehicle.general.fuelType?.title ?? "Fuel N/A",
     id: vehicle.id.toString(),
     imageUrls: mapImageUrls(vehicle.images),
-    location: "Location N/A",
+    location: location || "Location N/A",
     mileage: formatVehicleMileage(vehicle.general.mileage),
     ownerDeclarationCode: vehicle.technical.ownerDeclarationCode ?? "Declaration code N/A",
     postedAt: formatVehicleDate(vehicle.createdAt, "en-US"),
