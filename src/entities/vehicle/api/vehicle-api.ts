@@ -1,7 +1,7 @@
-import { apiRequestWithMeta } from "@/src/shared/api";
+import { apiRequest, apiRequestWithMeta } from "@/src/shared/api";
 
 import { mapVehicleDtoToVehicle } from "../model/mappers";
-import type { Vehicle, VehicleDto } from "../model/types";
+import type { CreateAdvertisementRequestDto, Vehicle, VehicleDto } from "../model/types";
 import type { VehicleFilterParams } from "../model/vehicle-filters";
 
 type VehicleListResult = {
@@ -71,4 +71,39 @@ export const getVehicle = async (vehicleId: string): Promise<Vehicle> => {
   );
 
   return mapVehicleDtoToVehicle(response.data);
+};
+
+export const createAdvertisement = async (
+  payload: CreateAdvertisementRequestDto,
+  authToken: string,
+): Promise<Vehicle> => {
+  const response = await apiRequest<VehicleDto>("/vehicles/advertisement", {
+    authToken,
+    cache: "no-store",
+    json: payload,
+    method: "POST",
+  });
+
+  return mapVehicleDtoToVehicle(response);
+};
+
+export const uploadAdvertisementImage = async (
+  vehicleId: number,
+  file: File,
+  authToken: string,
+): Promise<Vehicle> => {
+  const formData = new FormData();
+  formData.set("image", file);
+
+  const response = await apiRequest<VehicleDto>(
+    `/vehicles/advertisement/${encodeURIComponent(String(vehicleId))}/images`,
+    {
+      authToken,
+      body: formData,
+      cache: "no-store",
+      method: "POST",
+    },
+  );
+
+  return mapVehicleDtoToVehicle(response);
 };

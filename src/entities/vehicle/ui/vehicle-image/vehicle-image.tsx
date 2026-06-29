@@ -37,7 +37,7 @@ export function VehicleImageFrame({
           fill
           onError={() => setImageFailed(true)}
           sizes={sizes}
-          src={resolvedImageUrl}
+          src={imageUrl || ""}
           unoptimized
         />
       ) : (

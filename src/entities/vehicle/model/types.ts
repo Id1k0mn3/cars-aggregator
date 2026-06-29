@@ -21,6 +21,7 @@ export type VehicleDto = {
     historyCheck: string | null;
   };
   sourceUrl: string;
+  status?: string;
   technical: {
     climateControl: string | null;
     co2Emission: number | null;
@@ -35,6 +36,39 @@ export type VehicleDto = {
   };
   title: string;
   updatedAt: number | null;
+};
+
+export type CreateAdvertisementRequestDto = {
+  brand: string;
+  city: string | null;
+  country: string | null;
+  general: {
+    engineCapacity: number | null;
+    enginePowerHp: number | null;
+    enginePowerKw: number | null;
+    firstRegistration: string;
+    fuelType: string;
+    gearboxType: string | null;
+    mileage: number;
+  };
+  links?: {
+    historyCheck: string | null;
+  };
+  name: string;
+  price: number;
+  technical: {
+    bodyType: string;
+    climateControl: string | null;
+    co2Emission: number | null;
+    color: string | null;
+    doors: string | null;
+    driveType: string | null;
+    euroStandard: string | null;
+    ownerDeclarationCode: string | null;
+    registrationFee: number | null;
+    seats: number | null;
+    technicalInspectionUntil: string | null;
+  };
 };
 
 export type Vehicle = {
@@ -58,6 +92,7 @@ export type Vehicle = {
     historyCheck: string | null;
   };
   sourceUrl: string;
+  status: string | null;
   technical: {
     climateControl: string | null;
     co2Emission: number | null;

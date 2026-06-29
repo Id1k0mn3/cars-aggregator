@@ -1,7 +1,11 @@
 import Link from "next/link";
 
 import { getBodyTypes, getBrandTypes, getFuelTypes } from "@/src/entities/dictionary";
-import { DEFAULT_VEHICLE_PER_PAGE, getVehicles, VehicleHorizontalCard } from "@/src/entities/vehicle";
+import {
+  DEFAULT_VEHICLE_PER_PAGE,
+  getVehicles,
+  VehicleHorizontalCard,
+} from "@/src/entities/vehicle";
 import {
   parseVehicleFilterSearchParams,
   SelectedVehicleFilters,
@@ -35,12 +39,13 @@ export async function VehiclesPage({ searchParams }: VehiclesPageProps) {
   const parsedFilters = parseVehicleFilterSearchParams(searchParams);
   const shouldFetchVehicles = parsedFilters.validationMessages.length === 0;
 
-  const [brandTypesResult, fuelTypesResult, bodyTypesResult, vehiclesResult] = await Promise.allSettled([
-    getBrandTypes(),
-    getFuelTypes(),
-    getBodyTypes(),
-    shouldFetchVehicles ? getVehicles(parsedFilters.filters) : Promise.resolve(null),
-  ]);
+  const [brandTypesResult, fuelTypesResult, bodyTypesResult, vehiclesResult] =
+    await Promise.allSettled([
+      getBrandTypes(),
+      getFuelTypes(),
+      getBodyTypes(),
+      shouldFetchVehicles ? getVehicles(parsedFilters.filters) : Promise.resolve(null),
+    ]);
 
   const dictionaries = {
     bodyTypes: bodyTypesResult.status === "fulfilled" ? bodyTypesResult.value : [],
@@ -94,7 +99,10 @@ export async function VehiclesPage({ searchParams }: VehiclesPageProps) {
               Vehicles for sale
             </h1>
           </div>
-          <SelectedVehicleFilters currentFilters={parsedFilters.filters} dictionaries={dictionaries} />
+          <SelectedVehicleFilters
+            currentFilters={parsedFilters.filters}
+            dictionaries={dictionaries}
+          />
         </div>
       </section>
 

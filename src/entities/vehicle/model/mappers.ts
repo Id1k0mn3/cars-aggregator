@@ -26,6 +26,7 @@ export const mapVehicleDtoToVehicle = (dto: VehicleDto): Vehicle => {
       historyCheck: dto.links.historyCheck,
     },
     sourceUrl: dto.sourceUrl,
+    status: dto.status ?? null,
     technical: {
       climateControl: dto.technical.climateControl,
       co2Emission: dto.technical.co2Emission,

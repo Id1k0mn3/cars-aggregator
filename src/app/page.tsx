@@ -21,8 +21,10 @@ export default async function Page() {
 
   try {
     const homePageDto = await getHomePage();
+    console.log(homePageDto);
     homePage = mapHomePageDtoToData(homePageDto);
   } catch (error) {
+    console.log(error);
     errorMessage = getHomePageErrorMessage(error);
   }
 

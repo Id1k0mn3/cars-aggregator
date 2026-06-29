@@ -1,5 +1,5 @@
-export { getVehicle, getVehicles } from "./api/vehicle-api";
-export type { Vehicle, VehicleDto } from "./model/types";
+export { createAdvertisement, getVehicle, getVehicles, uploadAdvertisementImage } from "./api/vehicle-api";
+export type { CreateAdvertisementRequestDto, Vehicle, VehicleDto } from "./model/types";
 export type { VehicleFilterParamKey, VehicleFilterParams } from "./model/vehicle-filters";
 export { DEFAULT_VEHICLE_PER_PAGE, vehicleFilterParamKeys } from "./model/vehicle-filters";
 export {

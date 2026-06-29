@@ -82,7 +82,7 @@ export const apiRequestWithMeta = async <TResponse>(
   options: ApiRequestOptions = {},
 ): Promise<{ data: TResponse; headers: Headers }> => {
   const url = createApiUrl(path);
-  const { authToken, headers: providedHeaders, json, ...requestOptions } = options;
+  const { authToken, body, headers: providedHeaders, json, ...requestOptions } = options;
   const headers = new Headers(providedHeaders);
   headers.set("Accept", "application/json");
 
@@ -98,16 +98,17 @@ export const apiRequestWithMeta = async <TResponse>(
   if (json !== undefined) {
     headers.set("Content-Type", "application/json");
     requestInit.body = JSON.stringify(json);
+  } else if (body !== undefined) {
+    requestInit.body = body;
   }
 
   let response: Response;
 
   try {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@ url: ", url);
     response = await fetch(url, requestInit);
-  } catch {
-    throw new ApiClientError({
-      message: "API request failed.",
-    });
+  } catch (e) {
+    throw e;
   }
 
   const parsedBody = hasJsonContentType(response.headers)

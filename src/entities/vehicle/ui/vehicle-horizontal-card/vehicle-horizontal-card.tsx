@@ -28,6 +28,7 @@ type VehicleHorizontalCardProps = {
 };
 
 export function VehicleHorizontalCard({ vehicle }: VehicleHorizontalCardProps) {
+  console.log(vehicle.imageUrl);
   return (
     <article className="group grid overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md md:grid-cols-[220px_1fr_170px]">
       <Link

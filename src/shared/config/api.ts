@@ -5,7 +5,7 @@ export class ApiConfigError extends Error {
   }
 }
 
-const DEFAULT_API_BASE_URL = "http://localhost:8012/v1";
+const DEFAULT_API_BASE_URL = "http://localhost:8000/v1";
 
 const trimTrailingSlash = (value: string) => value.replace(/\/+$/, "");
 
