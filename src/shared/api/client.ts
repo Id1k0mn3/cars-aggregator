@@ -64,8 +64,12 @@ const parseJsonResponse = async (response: Response): Promise<unknown> => {
 const createApiUrl = (path: string) => {
   const baseUrl = getApiBaseUrl();
   const normalizedPath = path.startsWith("/") ? path.slice(1) : path;
+  const versionlessPath =
+    normalizedPath === "v1" || normalizedPath.startsWith("v1/")
+      ? normalizedPath.slice("v1".length).replace(/^\/+/, "")
+      : normalizedPath;
 
-  return new URL(normalizedPath, `${baseUrl}/`).toString();
+  return new URL(versionlessPath, `${baseUrl}/`).toString();
 };
 
 export const apiRequest = async <TResponse>(
@@ -105,7 +109,6 @@ export const apiRequestWithMeta = async <TResponse>(
   let response: Response;
 
   try {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@ url: ", url);
     response = await fetch(url, requestInit);
   } catch (e) {
     throw e;

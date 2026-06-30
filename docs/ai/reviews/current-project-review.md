@@ -49,10 +49,10 @@ The architecture is not risky, but it is not yet stable enough to call a clean f
 ### Issue 5
 
 - Severity: Low
-- Location: `src/shared/config/api.ts`
-- Problem: The invalid URL error message only mentions `NEXT_PUBLIC_API_BASE_URL`, even though the resolver now also accepts `API_BASE_URL`.
-- Why it matters: This can mislead developers when the server-side env var is invalid.
-- Recommended fix: Change the error message to mention both `API_BASE_URL` and `NEXT_PUBLIC_API_BASE_URL`.
+- Location: production deployment configuration
+- Problem: Production API access is currently documented with a plain HTTP IP address.
+- Why it matters: Plain HTTP IP access is acceptable for temporary testing but is not a strong production deployment target.
+- Recommended fix: Move production traffic to an HTTPS domain when DNS and TLS are ready.
 
 ## Architecture Review
 
@@ -102,11 +102,11 @@ The shared API client is simple and consistent:
 - API-specific error payloads remain in `shared/api`.
 - Entity APIs and home APIs call the shared client.
 
-Base URL handling is reasonable but needs a small cleanup:
+Base URL handling is centralized:
 
-- `src/shared/config/api.ts` prefers `API_BASE_URL` and falls back to `NEXT_PUBLIC_API_BASE_URL`.
-- This supports server-side API calls while preserving existing shared usage.
-- The invalid URL error message should be updated to mention both env vars.
+- `src/shared/config/env.ts` validates `NEXT_PUBLIC_API_URL` as the API origin.
+- `src/shared/config/api.ts` appends `/v1` centrally for API requests.
+- `NEXT_PUBLIC_*` variables are public browser-bundle values and must not contain secrets.
 
 Cache strategy is explicit where it matters:
 
@@ -184,7 +184,7 @@ Concrete simplification opportunities:
 
 ### 1. Quick fixes
 
-1. Fix the env error message in `src/shared/config/api.ts`.
+1. Move production API access from plain HTTP IP access to an HTTPS domain.
 2. Confirm or remove `models?: HomeVehicleModelDto[]` from the home DTO.
 3. Verify the `/v1/vehicles/home/` `brands` payload with the backend/API owner.
 4. Remove unused `src/views/vehicles-page/model/mock-vehicles.ts` if no longer referenced.
@@ -214,11 +214,11 @@ Concrete simplification opportunities:
 | `src/views/home/model/home-page-mappers.ts` | Assumes `dto.brands` is valid car brand data; current observed data may not match. | Verify backend response and adjust only after contract is clear. | High |
 | `src/views/home/ui/home-hero.tsx` | Submits `model` query param, but catalog parser does not support it. | Either add supported filter handling or remove/disable model submission. | Medium |
 | `src/views/vehicles-page/ui/vehicles-page.tsx` | Too much orchestration and derived state in one server component. | Move derived list/pagination state into model helpers. | Medium |
-| `src/shared/config/api.ts` | Error message references only `NEXT_PUBLIC_API_BASE_URL` for invalid URLs. | Mention both supported env vars. | Low |
+| production deployment config | API access currently uses a plain HTTP IP target. | Move production traffic to an HTTPS domain. | Low |
 | `src/views/vehicles-page/model/mock-vehicles.ts` | Appears unused after API integration. | Remove if confirmed unused. | Low |
 | `response.json` | Root-level API sample has unclear ownership. | Move to a fixture/docs location or document its purpose. | Low |
 | `src/views/vehicle-detail-page/ui/vehicle-detail-page.tsx` | Mock-based large page. | Keep as placeholder until detail API contract exists; do not expand yet. | Low |
-| `next.config.ts` | Allows localhost images only. | Add production image host patterns when production media host is known. | Low |
+| `next.config.ts` | Allows localhost and current production IP image hosts. | Replace IP host with production domain when media host is finalized. | Low |
 
 ## What Not To Refactor Yet
 

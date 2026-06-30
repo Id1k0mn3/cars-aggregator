@@ -9,7 +9,6 @@ type FeaturedVehiclesSectionProps = {
 };
 
 export function FeaturedVehiclesSection({ featuredCars }: FeaturedVehiclesSectionProps) {
-  console.log(featuredCars);
   return (
     <>
       <SectionHeader />

@@ -1,4 +1,4 @@
-import { getApiBaseUrl } from "@/src/shared/config";
+import { getApiOrigin } from "@/src/shared/config";
 
 const LOCAL_HOSTNAMES = new Set(["localhost", "127.0.0.1"]);
 
@@ -17,7 +17,7 @@ export const resolveImageUrl = (imageUrl: string | null | undefined) => {
   }
 
   try {
-    const apiBaseUrl = new URL(getApiBaseUrl());
+    const apiBaseUrl = new URL(getApiOrigin());
 
     if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
       const parsedImageUrl = new URL(imageUrl);

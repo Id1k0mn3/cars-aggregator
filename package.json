@@ -11,7 +11,8 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "typecheck": "tsc --noEmit",
-    "check": "pnpm run lint && pnpm run format:check && pnpm run typecheck"
+    "check": "pnpm run lint && pnpm run format:check && pnpm run typecheck",
+    "validate": "pnpm run typecheck && pnpm run lint && pnpm run build"
   },
   "dependencies": {
     "next": "16.2.9",
