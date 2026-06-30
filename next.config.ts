@@ -34,6 +34,14 @@ const nextConfig: NextConfig = {
   },
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
+  async rewrites() {
+    return [
+      {
+        destination: "http://167.99.241.255/:path*",
+        source: "/backend/:path*",
+      },
+    ];
+  },
   async headers() {
     return [
       {
