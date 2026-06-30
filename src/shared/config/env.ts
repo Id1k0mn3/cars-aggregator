@@ -7,9 +7,7 @@ export class EnvConfigError extends Error {
 
 const trimTrailingSlash = (value: string) => value.replace(/\/+$/, "");
 
-const getRequiredEnvValue = (name: string) => {
-  const value = process.env[name];
-
+const getRequiredEnvValue = (name: string, value: string | undefined) => {
   if (value === undefined || value.trim() === "") {
     throw new EnvConfigError(`${name} is required.`);
   }
@@ -33,9 +31,7 @@ const normalizeOriginEnvValue = (name: string, value: string) => {
   return trimTrailingSlash(url.origin);
 };
 
-const getOptionalOriginEnvValue = (name: string) => {
-  const value = process.env[name];
-
+const getOptionalOriginEnvValue = (name: string, value: string | undefined) => {
   if (value === undefined || value.trim() === "") {
     return undefined;
   }
@@ -44,6 +40,9 @@ const getOptionalOriginEnvValue = (name: string) => {
 };
 
 export const env = {
-  apiUrl: normalizeOriginEnvValue("NEXT_PUBLIC_API_URL", getRequiredEnvValue("NEXT_PUBLIC_API_URL")),
-  siteUrl: getOptionalOriginEnvValue("NEXT_PUBLIC_SITE_URL"),
+  apiUrl: normalizeOriginEnvValue(
+    "NEXT_PUBLIC_API_URL",
+    getRequiredEnvValue("NEXT_PUBLIC_API_URL", process.env.NEXT_PUBLIC_API_URL),
+  ),
+  siteUrl: getOptionalOriginEnvValue("NEXT_PUBLIC_SITE_URL", process.env.NEXT_PUBLIC_SITE_URL),
 } as const;
