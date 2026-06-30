@@ -3,6 +3,9 @@ import { getApiBaseUrl } from "@/src/shared/config";
 import { ApiClientError } from "./errors";
 import type { ApiErrorPayload, ApiRequestOptions } from "./types";
 
+const BACKEND_PROXY_PREFIX = "/backend";
+const PROXIED_BACKEND_HOSTNAME = "167.99.241.255";
+
 const hasJsonContentType = (headers: Headers) => {
   const contentType = headers.get("content-type");
 
@@ -61,6 +64,16 @@ const parseJsonResponse = async (response: Response): Promise<unknown> => {
   }
 };
 
+const isBrowserRuntime = () => typeof window !== "undefined";
+
+const shouldUseBrowserBackendProxy = (url: URL) => {
+  return isBrowserRuntime() && url.protocol === "http:" && url.hostname === PROXIED_BACKEND_HOSTNAME;
+};
+
+const createBackendProxyPath = (url: URL) => {
+  return `${BACKEND_PROXY_PREFIX}${url.pathname}${url.search}${url.hash}`;
+};
+
 const createApiUrl = (path: string) => {
   const baseUrl = getApiBaseUrl();
   const normalizedPath = path.startsWith("/") ? path.slice(1) : path;
@@ -68,8 +81,13 @@ const createApiUrl = (path: string) => {
     normalizedPath === "v1" || normalizedPath.startsWith("v1/")
       ? normalizedPath.slice("v1".length).replace(/^\/+/, "")
       : normalizedPath;
+  const apiUrl = new URL(versionlessPath, `${baseUrl}/`);
 
-  return new URL(versionlessPath, `${baseUrl}/`).toString();
+  if (shouldUseBrowserBackendProxy(apiUrl)) {
+    return createBackendProxyPath(apiUrl);
+  }
+
+  return apiUrl.toString();
 };
 
 export const apiRequest = async <TResponse>(
