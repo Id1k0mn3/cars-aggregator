@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import { resolveImageUrl } from "@/src/shared/lib/resolve-image-url";
+
 export type VehicleImageFrameProps = {
   className?: string;
   eyebrow?: string;
@@ -19,7 +21,8 @@ export function VehicleImageFrame({
   title,
 }: VehicleImageFrameProps) {
   const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
-  const resolvedImageUrl = imageUrl && imageUrl !== failedImageUrl ? imageUrl : null;
+  const safeImageUrl = resolveImageUrl(imageUrl);
+  const resolvedImageUrl = safeImageUrl && safeImageUrl !== failedImageUrl ? safeImageUrl : null;
 
   return (
     <div
